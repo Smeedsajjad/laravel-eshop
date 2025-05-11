@@ -19,7 +19,57 @@
 </head>
 
 <body>
-    <div class="font-sans text-gray-900 antialiased">
+    <div class="drawer lg:drawer-open">
+        <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content flex flex-col items-center justify-center">
+            <!-- Page content here -->
+            <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">
+                Open drawer
+            </label>
+        </div>
+        <div class="drawer-side">
+            <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
+            <div class="flex items-center mb-6">
+                <img src="{{ asset('images/Untitled-1_2-removebg-preview.webp') }}" alt="Brand Logo"
+                    class="h-10 w-10 mr-2">
+                <span class="text-lg font-bold truncate">eShop - Eommerence</span>
+            </div>
+            <!-- Menu items -->
+            <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+                <li class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('admin.dashboard') }}">
+                        <x-heroicon-o-home class="h-5 w-5" /> Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <x-heroicon-o-folder class="h-5 w-5" /> Categories
+                    </a>
+                </li>
+                <li class="">
+                    <a href="#">
+                        <x-heroicon-o-shopping-bag class="h-5 w-5" /> Products
+                    </a>
+                </li>
+                <li class="">
+                    <a href="#">
+                        <x-heroicon-o-briefcase class="h-5 w-5" /> Brands
+                    </a>
+                </li>
+                <li class="">
+                    <a href="#">
+                        <x-heroicon-o-photo class="h-5 w-5" /> Sliders
+                    </a>
+                </li>
+                <li class="">
+                    <a href="#">
+                        <x-heroicon-o-clipboard-document-list class="h-5 w-5" /> Orders
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div>
         {{ $slot }}
     </div>
 
