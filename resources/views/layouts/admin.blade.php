@@ -12,65 +12,42 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
+
     <!-- Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
     <title>{{ $title ?? 'Admin Panel | eShop' }}</title>
 </head>
 
-<body>
+<body class="min-h-screen bg-base-200 antialiased">
     <div class="drawer lg:drawer-open">
-        <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-        <div class="drawer-content flex flex-col items-center justify-center">
-            <!-- Page content here -->
-            <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">
-                Open drawer
-            </label>
+        <input id="admin-drawer" type="checkbox" class="drawer-toggle" />
+
+        {{-- SIDEBAR --}}
+        <div class="drawer-side z-50">
+            <label for="admin-drawer" class="drawer-overlay"></label>
+            @include('components.admin.sidebar-menu')
         </div>
-        <div class="drawer-side">
-            <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
-            <div class="flex items-center mb-6">
-                <img src="{{ asset('images/Untitled-1_2-removebg-preview.webp') }}" alt="Brand Logo"
-                    class="h-10 w-10 mr-2">
-                <span class="text-lg font-bold truncate">eShop - Eommerence</span>
-            </div>
-            <!-- Menu items -->
-            <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-                <li class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                    <a href="{{ route('admin.dashboard') }}">
-                        <x-heroicon-o-home class="h-5 w-5" /> Dashboard
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <x-heroicon-o-folder class="h-5 w-5" /> Categories
-                    </a>
-                </li>
-                <li class="">
-                    <a href="#">
-                        <x-heroicon-o-shopping-bag class="h-5 w-5" /> Products
-                    </a>
-                </li>
-                <li class="">
-                    <a href="#">
-                        <x-heroicon-o-briefcase class="h-5 w-5" /> Brands
-                    </a>
-                </li>
-                <li class="">
-                    <a href="#">
-                        <x-heroicon-o-photo class="h-5 w-5" /> Sliders
-                    </a>
-                </li>
-                <li class="">
-                    <a href="#">
-                        <x-heroicon-o-clipboard-document-list class="h-5 w-5" /> Orders
-                    </a>
-                </li>
-            </ul>
+
+        {{-- CONTENT AREA --}}
+        <div class="drawer-content flex flex-col min-h-screen">
+            {{-- HEADER --}}
+            <x-admin.header />
+
+            {{-- MAIN CONTENT --}}
+            <main class="flex-1 w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+                <div class="max-w-full mx-auto">
+                    {{ $slot }}
+                </div>
+            </main>
+
+            {{-- FOOTER (Optional)
+            @isset($footer)
+            <footer class="bg-base-100 p-4 shadow-md">
+                {{ $footer }}
+            </footer>
+            @endisset --}}
         </div>
-    </div>
-    <div>
-        {{ $slot }}
     </div>
 
     @livewireScripts
