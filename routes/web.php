@@ -1,7 +1,9 @@
 <?php
+
 use App\Http\Middleware\AdminMiddleware;
 use App\Livewire\Admin\CategoryMangement;
 use App\Livewire\Admin\Dashboard;
+use App\Livewire\Admin\Profile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 | immediately redirect to admin.dashboard.
 |
 */
+
 Route::get('/', function () {
     if (Auth::check() && Auth::user()->isAdmin()) {
         return redirect()->route('admin.dashboard');
@@ -40,8 +43,9 @@ Route::middleware([
         $user = Auth::user();
         if ($user->isAdmin()) {
             return redirect()->route('admin.dashboard');
+        } else {
+            return view('dashboard');
         }
-        return view('dashboard');
     })->name('dashboard');
 });
 
@@ -58,9 +62,10 @@ Route::middleware(['auth', AdminMiddleware::class])
     ->name('admin.')
     ->group(function () {
         // GET /admin OR /admin/dashboard → Livewire Dashboard component
-        Route::get('/dashboard', Dashboard::class)->name('dashboard');
         Route::get('/', fn() => redirect()->route('admin.dashboard'));
-        // Add your other admin Livewire pages here:
+        Route::get('/dashboard', Dashboard::class)->name('dashboard');
+        Route::get('/profile', Profile::class)->name('profile');        // Add your other admin Livewire pages here:
+        // Route::view('/profile', 'admin.profile')->name('profile');
         // Route::get('category', CategoryMangement::class)->name('category');
 
     });

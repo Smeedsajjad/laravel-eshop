@@ -1,0 +1,29 @@
+/*
+these three are text change there colors acording to scheame
+h3.text-lg.font-medium.text-gray-900{}
+p.mt-1.text-sm.text-gray-600{}
+label.block.font-medium.text-sm.text-gray-700{}
+
+and here change bg color these are cards
+.px-4.py-5.bg-white.sm\:p-6.shadow.sm\:rounded-tl-md.sm\:rounded-tr-md{}
+.flex.items-center.justify-end.px-4.py-3.bg-gray-50.text-end.sm\:px-6.shadow.sm\:rounded-bl-md.sm\:rounded-br-md{} */
+h3.text-lg.font-medium.text-gray-900 {
+    color: #F1F5F9; /* text-base-content */
+}
+
+p.mt-1.text-sm.text-gray-600 {
+    color: #A0AEC0; /* text-secondary */
+}
+
+label.block.font-medium.text-sm.text-gray-700 {
+    color: #F1F5F9; /* text-base-content */
+}
+
+/* Background color updates */
+.px-4.py-5.bg-white.sm\:p-6.shadow.sm\:rounded-tl-md.sm\:rounded-tr-md {
+    background-color: #2A2F35; /* bg-base-300 */
+}
+
+.flex.items-center.justify-end.px-4.py-3.bg-gray-50.text-end.sm\:px-6.shadow.sm\:rounded-bl-md.sm\:rounded-br-md {
+    background-color: #1D232A; /* bg-base-200 */
+}
