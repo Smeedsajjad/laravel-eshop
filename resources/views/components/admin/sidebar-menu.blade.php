@@ -28,7 +28,7 @@
                    ? 'menu-active bg-primary text-white'
                    : '' }}
                ">
-        <a class="flex items-center gap-2 hover:bg-base-300" wire:navigate href="#">
+        <a class="flex items-center gap-2 hover:bg-base-300" wire:navigate href="{{ route('admin.category') }}">
             <x-heroicon-s-folder class="h-5 w-5" />
             Categories
         </a>

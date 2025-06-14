@@ -64,6 +64,6 @@ Route::middleware(['auth', AdminMiddleware::class])
         // GET /admin OR /admin/dashboard → Livewire Dashboard component
         Route::get('/', fn() => redirect()->route('admin.dashboard'));
         Route::get('/dashboard', Dashboard::class)->name('dashboard');
-        Route::get('/profile', Profile::class)->name('profile'); 
-
+        Route::get('/profile', Profile::class)->name('profile');
+        Route::get('/category', CategoryManagement::class)->name('category');
     });

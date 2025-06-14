@@ -5,3 +5,47 @@
 [x-cloak] {
     display: none;
 }
+
+.loader {
+    width: 48px;
+    height: 48px;
+    background: #FFF;
+    display: inline-block;
+    border-radius: 50%;
+    box-sizing: border-box;
+    animation: animloader 1s ease-in infinite;
+}
+
+@keyframes animloader {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+/* Spinner overlay */
+.spinner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.25);
+    z-index: 10;
+}
+
+.spinner-overlay .loader {
+    height: 6rem;
+    width: 6rem;
+    position: relative;
+    top: 35%;
+}
