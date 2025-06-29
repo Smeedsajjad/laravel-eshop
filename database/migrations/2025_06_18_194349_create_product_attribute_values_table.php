@@ -14,13 +14,15 @@ return new class extends Migration
         Schema::create('product_attribute_values', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')
-                ->constrained()->cascadeOnDelete();
-            $table->foreignId('attribute_id')
-                ->constrained('attributes')->cascadeOnDelete();
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->foreignId('product_attribute_id')
+                ->constrained('product_attributes')
+                ->cascadeOnDelete();
             $table->text('value');
             $table->timestamps();
 
-            $table->unique(['product_id', 'attribute_id']);
+            $table->unique(['product_id', 'product_attribute_id']);
         });
     }
 

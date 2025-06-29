@@ -18,12 +18,12 @@ class Product extends Model
         'stock',
         'sku',
         'is_active',
-        'meta_data'
     ];
 
     protected $casts = [
-        'images' => 'array',
-        'meta_data' => 'array',
+        'is_active' => 'boolean',
+        'price' => 'decimal:2',
+        'stock' => 'integer',
     ];
 
     protected static function booted()
@@ -45,10 +45,10 @@ class Product extends Model
         return $this->hasMany(ProductImage::class);
     }
 
-    // public function scopeActive($query)
-    // {
-    //     return $query->where('is_active', true);
-    // }
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
 
     public function specs()
     {

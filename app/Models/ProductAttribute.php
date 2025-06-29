@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductAttribute extends Model
 {
-    protected $fillable = ['name', 'type','is_filterable'];
+    protected $fillable = ['name', 'type', 'is_filterable'];
 
     public function values()
     {

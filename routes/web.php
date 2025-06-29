@@ -3,7 +3,11 @@
 use App\Http\Middleware\AdminMiddleware;
 use App\Livewire\Admin\CategoryManagement;
 use App\Livewire\Admin\Dashboard;
+use App\Livewire\Admin\ProductCreate;
+use App\Livewire\Admin\ProductEdit;
+use App\Livewire\Admin\ProductIndex;
 use App\Livewire\Admin\Profile;
+use App\Livewire\Admin\ProductShow;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -66,4 +70,11 @@ Route::middleware(['auth', AdminMiddleware::class])
         Route::get('/dashboard', Dashboard::class)->name('dashboard');
         Route::get('/profile', Profile::class)->name('profile');
         Route::get('/category', CategoryManagement::class)->name('category');
+
+        Route::prefix('products')->name('products.')->group(function () {
+            Route::get('/', ProductIndex::class)->name('index');
+            Route::get('/create', ProductCreate::class)->name('create');
+            // Route::get('/{product}/edit', ProductEdit::class)->name('edit');
+            // Route::get('/{product}', ProductShow::class)->name('show');
+        });
     });
