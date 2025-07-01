@@ -25,29 +25,18 @@
             <!-- Flash Messages -->
             <div class="container mx-auto">
                 <!-- Enhanced Alert System with DaisyUI -->
-                <div id="alert-container" class="mb-6 space-y-4">
-                    @if (session()->has('message'))
-                        <div class="alert alert-success shadow-lg">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
+
+                {{-- Success/Error Messages --}}
+                @if (session()->has('message'))
+                    <div class="toast toast-top toast-end z-50" x-data="{ show: true }" x-show="show"
+                        x-init="setTimeout(() => show = false, 5000)">
+                        <div class="alert alert-success">
+                            <x-heroicon-o-check-circle class="size-5" />
                             <span>{{ session('message') }}</span>
                         </div>
-                    @endif
+                    </div>
+                @endif
 
-                    @if (session()->has('error'))
-                        <div class="alert alert-error shadow-lg">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6"
-                                fill="none" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span>{{ session('error') }}</span>
-                        </div>
-                    @endif
-                </div>
                 <!-- Header -->
                 <div class="flex flex-col sm:flex-row w-full items-start sm:items-center justify-between mb-6">
                     <h1 class="text-gray-300 text-2xl lg:text-3xl mb-4 sm:mb-0">Add Product</h1>
@@ -84,7 +73,6 @@
                 <hr class="my-6 lg:my-10 border-gray-700">
 
                 <form wire:submit.prevent="saveProduct">
-                    <p class="text-sm text-gray-600 pb-4">Ensure you add the attribute in Product Specifications section bedfore submit the form!</p>
 
                     <!-- Basic Information -->
                     <div class="bg-base-100 p-4 lg:p-6 shadow-lg rounded-lg grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -178,21 +166,8 @@
                         <!-- Is Active Toggle -->
                         <div class="col-span-1 lg:col-span-1 flex items-center">
                             <label class="text-sm font-medium text-gray-300 mr-4">Is Active</label>
-                            <label class="toggle text-base-content">
-                                <input type="checkbox" wire:model="is_active" />
-                                <svg aria-label="enabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <g stroke-linejoin="round" stroke-linecap="round" stroke-width="4"
-                                        fill="none" stroke="currentColor">
-                                        <path d="M20 6 9 17l-5-5"></path>
-                                    </g>
-                                </svg>
-                                <svg aria-label="disabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path d="M18 6 6 18" />
-                                    <path d="m6 6 12 12" />
-                                </svg>
-                            </label>
+                            <input type="checkbox" wire:model="is_active"
+                                class="toggle border-indigo-400 bg-indigo-500 checked:border-indigo-500 checked:bg-indigo-500" />
                         </div>
                     </div>
 
@@ -251,8 +226,8 @@
                                         @enderror
                                     </div>
                                     <!-- Add Button -->
-                                    <button wire:click="addSpec" wire:loading.attr="disabled" wire:target="addSpec"
-                                        class="btn btn-primary whitespace-nowrap">
+                                    <button type="button" wire:click="addSpec" wire:loading.attr="disabled"
+                                        wire:target="addSpec" class="btn btn-primary whitespace-nowrap">
                                         <span wire:loading.remove wire:target="addSpec">Add Spec</span>
                                         <span wire:loading wire:target="addSpec"
                                             class="loading loading-spinner loading-xs"></span>
@@ -311,7 +286,8 @@
                                                     </div>
                                                 </td>
                                                 <td class="text-center">
-                                                    <button wire:click="removeSpec({{ $index }})"
+                                                    <button type="button"
+                                                        wire:click="removeSpec({{ $index }})"
                                                         wire:loading.attr="disabled" wire:target="removeSpec"
                                                         wire:confirm="Are you sure you want to remove this specification?"
                                                         class="btn btn-sm btn-error">
@@ -399,7 +375,7 @@
                                     </p>
                                 </fieldset>
 
-                                <button wire:click="saveAttribute" class="btn btn-primary w-full"
+                                <button type="button" wire:click="saveAttribute" class="btn btn-primary w-full"
                                     wire:loading.attr="disabled" wire:target="saveAttribute">
                                     <span wire:loading.remove wire:target="saveAttribute">Create Attribute</span>
                                     <span wire:loading wire:target="saveAttribute"
@@ -592,12 +568,9 @@
                                 if (target.matches('input[wire\\:model="newValue"]') ||
                                     target.matches('select[wire\\:model="newAttribute"]')) {
                                     e.preventDefault();
-                                    // Trigger addSpec instead
-                                    if (target.closest('form')) {
-                                        const addButton = target.closest('.bg-gray-800').querySelector('[wire\\:click="addSpec"]');
-                                        if (addButton && !addButton.disabled) {
-                                            addButton.click();
-                                        }
+                                    const addButton = target.closest('.bg-gray-800').querySelector('[wire\\:click="addSpec"]');
+                                    if (addButton && !addButton.disabled) {
+                                        addButton.click();
                                     }
                                 }
                             }
@@ -645,7 +618,6 @@
 
                         .table tbody tr:hover {
                             background-color: rgba(255, 255, 255, 0.05);
-                            transform: translateX(2px);
                         }
 
                         /* Enhanced disabled states */
@@ -662,6 +634,10 @@
 
                         input[type="file"]:hover {
                             transform: translateY(-1px);
+                        }
+
+                        [type='checkbox']:checked:focus {
+                            background-color: rgb(99 102 241) !important;
                         }
                     </style>
 

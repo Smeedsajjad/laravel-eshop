@@ -28,8 +28,6 @@ class ProductCreate extends Component
     public $stock = '';
     public $sku = '';
     public $is_active = true;
-    public $meta_title = '';
-    public $meta_description = '';
     public $image_path = [];
 
     // Attribute form fields (separate from product)
@@ -52,8 +50,6 @@ class ProductCreate extends Component
             'category_id'      => 'required|exists:categories,id',
             'is_active'        => 'boolean',
             'description'      => 'nullable|string',
-            'meta_title'       => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string',
             'image_path.*'     => 'image|max:2048',
         ];
     }
@@ -227,8 +223,6 @@ class ProductCreate extends Component
                 'stock'            => $this->stock,
                 'category_id'      => $this->category_id,
                 'is_active'        => $this->is_active,
-                'meta_title'       => $this->meta_title ?: $this->name,
-                'meta_description' => $this->meta_description,
                 'sku'              => $this->sku ?: $this->generateSku(),
             ]);
 
@@ -254,6 +248,7 @@ class ProductCreate extends Component
                 'message' => "Product '{$productName}' created successfully with {$specsCount} specifications!",
                 'product_id' => $product->id
             ]);
+            session()->flash('message', 'Product Created successfully!');
 
             // Optional: Redirect after success
             // return redirect()->route('admin.products.index');
@@ -332,8 +327,6 @@ class ProductCreate extends Component
             'stock',
             'category_id',
             'is_active',
-            'meta_title',
-            'meta_description',
             'image_path',
             'specs',
             'sku',

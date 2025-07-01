@@ -48,7 +48,7 @@
                 {{-- All Products Link --}}
                 <li
                     class="
-                p-2 rounded-md my-2
+                rounded-md my-2
                 hover:bg-base-300 hover:text-primary
                 {{ request()->routeIs('admin.products.index') ? 'menu-active bg-primary text-white' : '' }}
             ">
@@ -61,7 +61,7 @@
                 {{-- Create Product Link --}}
                 <li
                     class="
-                p-2 rounded-md my-2
+                rounded-md my-2
                 hover:bg-base-300 hover:text-primary
                 {{ request()->routeIs('admin.products.create') ? 'menu-active bg-primary text-white' : '' }}
             ">
