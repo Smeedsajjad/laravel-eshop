@@ -19,7 +19,7 @@ class ProductIndex extends Component
     public $search = '';
     public $perPage = 10;
     public $sortBy = 'id';
-    public $sortDirection = 'desc';
+    public $sortDirection = 'asc';
 
     // Delete confirmation
     public $deletingProduct = null;
@@ -32,7 +32,7 @@ class ProductIndex extends Component
 
     // Image gallery modal properties
     public $showImageModal = false;
-    public $currentProductName = '';
+    public $currentProduct = null; // Store the entire product object
     public $currentImages = [];
     public $currentImageIndex = 0;
 
@@ -157,36 +157,49 @@ class ProductIndex extends Component
     // Image gallery methods
     public function openImageGallery($productId)
     {
-        $product = Product::with('images')->findOrFail($productId);
-        $this->currentProductName = $product->name;
-        $this->currentImages = $this->getAllProductImages($product);
-        $this->currentImageIndex = 0;
-        $this->showImageModal = true;
+        // Find the product in the already loaded products to avoid DB query
+        $product = $this->products->firstWhere('id', $productId);
+
+        if (!$product) {
+            // Fallback if product not found in current page
+            $product = Product::with('images')->find($productId);
+        }
+
+        if ($product) {
+            $this->currentProduct = $product;
+            $this->currentImages = $this->getAllProductImages($product);
+            $this->currentImageIndex = 0;
+            $this->showImageModal = true;
+        }
     }
 
     public function closeImageGallery()
     {
         $this->showImageModal = false;
-        $this->currentProductName = '';
+        $this->currentProduct = null;
         $this->currentImages = [];
         $this->currentImageIndex = 0;
     }
 
     public function nextImage()
     {
-        if ($this->currentImageIndex < count($this->currentImages) - 1) {
-            $this->currentImageIndex++;
-        } else {
-            $this->currentImageIndex = 0; // Loop to first image
+        if (!empty($this->currentImages)) {
+            if ($this->currentImageIndex < count($this->currentImages) - 1) {
+                $this->currentImageIndex++;
+            } else {
+                $this->currentImageIndex = 0; // Loop to first image
+            }
         }
     }
 
     public function previousImage()
     {
-        if ($this->currentImageIndex > 0) {
-            $this->currentImageIndex--;
-        } else {
-            $this->currentImageIndex = count($this->currentImages) - 1; // Loop to last image
+        if (!empty($this->currentImages)) {
+            if ($this->currentImageIndex > 0) {
+                $this->currentImageIndex--;
+            } else {
+                $this->currentImageIndex = count($this->currentImages) - 1; // Loop to last image
+            }
         }
     }
 

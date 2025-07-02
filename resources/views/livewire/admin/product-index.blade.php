@@ -242,6 +242,7 @@
                                     <td class="font-mono">{{ $product->id }}</td>
 
                                     <!-- Product Image -->
+                                    <!-- Product Image Column in your table -->
                                     <td>
                                         @php
                                             $firstImage = $this->getFirstImage($product->images);
@@ -269,6 +270,121 @@
                                         @endif
                                     </td>
 
+                                    <!-- Image Gallery Modal (place this at the bottom of your view, after the table) -->
+                                    @if ($showImageModal && $currentProduct)
+                                        <div class="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4"
+                                            wire:click="closeImageGallery" x-data="{
+                                                handleKeydown(event) {
+                                                    if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+                                                        event.preventDefault();
+                                                        $wire.call('previousImage');
+                                                    } else if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+                                                        event.preventDefault();
+                                                        $wire.call('nextImage');
+                                                    } else if (event.key === 'Escape') {
+                                                        event.preventDefault();
+                                                        $wire.call('closeImageGallery');
+                                                    }
+                                                }
+                                            }"
+                                            x-init="$el.focus()" @keydown.window="handleKeydown($event)"
+                                            tabindex="0">
+                                            <div class="relative max-w-4xl max-h-full w-full h-full flex flex-col"
+                                                wire:click.stop>
+
+                                                <!-- Modal Header -->
+                                                <div class="flex justify-between items-center mb-4 text-white">
+                                                    <div>
+                                                        <h3 class="text-lg font-semibold">{{ $currentProduct->name }}
+                                                        </h3>
+                                                        <p class="text-sm text-gray-300">
+                                                            Image {{ $currentImageIndex + 1 }} of
+                                                            {{ count($currentImages) }}
+                                                        </p>
+                                                    </div>
+                                                    <button wire:click="closeImageGallery"
+                                                        class="text-white hover:text-gray-300 transition-colors">
+                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor"
+                                                            viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+
+                                                <!-- Main Image Container -->
+                                                <div
+                                                    class="flex-1 flex items-center justify-center relative bg-gray-900 rounded-lg overflow-hidden">
+                                                    @if ($this->getCurrentImage())
+                                                        <img src="{{ asset('storage/' . $this->getCurrentImage()) }}"
+                                                            alt="{{ $currentProduct->name }}"
+                                                            class="max-w-full max-h-full object-contain"
+                                                            loading="lazy">
+                                                    @endif
+
+                                                    <!-- Navigation Arrows -->
+                                                    @if (count($currentImages) > 1)
+                                                        <!-- Previous Button -->
+                                                        <button wire:click="previousImage"
+                                                            class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-75 text-white rounded-full p-3 transition-all focus:outline-none focus:ring-2 focus:ring-white">
+                                                            <svg class="w-6 h-6" fill="none" stroke="currentColor"
+                                                                viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                                            </svg>
+                                                        </button>
+
+                                                        <!-- Next Button -->
+                                                        <button wire:click="nextImage"
+                                                            class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-75 text-white rounded-full p-3 transition-all focus:outline-none focus:ring-2 focus:ring-white">
+                                                            <svg class="w-6 h-6" fill="none" stroke="currentColor"
+                                                                viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                                            </svg>
+                                                        </button>
+                                                    @endif
+                                                </div>
+
+                                                <!-- Thumbnail Pagination -->
+                                                @if (count($currentImages) > 1)
+                                                    <div class="mt-4 flex justify-center">
+                                                        <div class="flex space-x-2 overflow-x-auto max-w-full pb-2">
+                                                            @foreach ($currentImages as $index => $image)
+                                                                <button wire:click="goToImage({{ $index }})"
+                                                                    class="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all focus:outline-none focus:ring-2 focus:ring-blue-400
+                                           {{ $index === $currentImageIndex ? 'border-blue-500' : 'border-gray-600 hover:border-gray-400' }}">
+                                                                    <img src="{{ asset('storage/' . $image) }}"
+                                                                        alt="Thumbnail {{ $index + 1 }}"
+                                                                        class="w-full h-full object-cover"
+                                                                        loading="lazy">
+                                                                </button>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Dots Indicator (alternative to thumbnails for many images) -->
+                                                    @if (count($currentImages) > 8)
+                                                        <div class="mt-2 flex justify-center space-x-1">
+                                                            @foreach ($currentImages as $index => $image)
+                                                                <button wire:click="goToImage({{ $index }})"
+                                                                    class="w-2 h-2 rounded-full transition-all focus:outline-none focus:ring-1 focus:ring-blue-400
+                                           {{ $index === $currentImageIndex ? 'bg-blue-500' : 'bg-gray-600 hover:bg-gray-400' }}">
+                                                                </button>
+                                                            @endforeach
+                                                        </div>
+                                                    @endif
+                                                @endif
+
+                                                <!-- Keyboard Navigation Instructions -->
+                                                @if (count($currentImages) > 1)
+                                                    <div class="mt-2 text-center text-gray-400 text-xs">
+                                                        Use arrow keys to navigate or click thumbnails
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endif
 
                                     <!-- Product Name -->
                                     <td class="font-medium">
@@ -308,11 +424,13 @@
 
                                     <!-- Status Toggle -->
                                     <td>
-                                        <input type="checkbox" class="toggle toggle-success"
+                                        <input type="checkbox"
+                                            class="toggle {{ $product->is_active ? 'toggle-success' : 'bg-indigo-600' }}"
                                             {{ $product->is_active ? 'checked' : '' }}
                                             wire:click="toggleStatus({{ $product->id }})"
                                             wire:loading.attr="disabled" wire:target="toggleStatus">
                                     </td>
+
 
                                     <!-- Created Date -->
                                     <td class="text-sm">
@@ -403,143 +521,19 @@
                     </div>
                 @endif
             </div>
-            @if ($showImageModal)
-                <div class="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4"
-                    wire:click="closeImageGallery">
-                    <div class="relative max-w-4xl max-h-full w-full h-full flex flex-col" wire:click.stop>
-
-                        <!-- Modal Header -->
-                        <div class="flex justify-between items-center mb-4 text-white">
-                            <div>
-                                <h3 class="text-lg font-semibold">{{ $currentProductName }}</h3>
-                                <p class="text-sm text-gray-300">
-                                    Image {{ $currentImageIndex + 1 }} of {{ $this->getCurrentImageCount() }}
-                                </p>
-                            </div>
-                            <button wire:click="closeImageGallery"
-                                class="text-white hover:text-gray-300 transition-colors">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                            </button>
+            @if ($deletingProduct)
+                <div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+                    <div class="bg-base-100 p-6 rounded shadow-md w-full max-w-md">
+                        <h2 class="text-lg font-bold mb-4">Delete Product</h2>
+                        <p>Are you sure you want to delete <strong>{{ $deletingProductName }}</strong>?</p>
+                        <div class="mt-4 flex justify-end gap-2">
+                            <button wire:click="confirmDelete" class="btn btn-error">Yes, Delete</button>
+                            <button wire:click="resetDeleteForm" class="btn">Cancel</button>
                         </div>
-
-                        <!-- Main Image Container -->
-                        <div
-                            class="flex-1 flex items-center justify-center relative bg-gray-900 rounded-lg overflow-hidden">
-                            @if ($this->getCurrentImage())
-                                <img src="{{ asset('storage/' . $this->getCurrentImage()) }}"
-                                    alt="{{ $currentProductName }}" class="max-w-full max-h-full object-contain">
-                            @endif
-
-                            <!-- Navigation Arrows -->
-                            @if ($this->getCurrentImageCount() > 1)
-                                <!-- Previous Button -->
-                                <button onclick="navigateImage('previous')"
-                                    class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-75 text-white rounded-full p-2 transition-all">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M15 19l-7-7 7-7"></path>
-                                    </svg>
-                                </button>
-
-                                <!-- Next Button -->
-                                <button onclick="navigateImage('next')"
-                                    class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-75 text-white rounded-full p-2 transition-all">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M9 5l7 7-7 7"></path>
-                                    </svg>
-                                </button>
-                            @endif
-                        </div>
-
-                        <!-- Thumbnail Pagination -->
-                        @if ($this->getCurrentImageCount() > 1)
-                            <div class="mt-4 flex justify-center">
-                                <div class="flex space-x-2 overflow-x-auto max-w-full pb-2">
-                                    @foreach ($currentImages as $index => $image)
-                                        <button onclick="goToImageIndex({{ $index }})"
-                                            class="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all
-                                           {{ $index === $currentImageIndex ? 'border-blue-500' : 'border-gray-600 hover:border-gray-400' }}">
-                                            <img src="{{ asset('storage/' . $image) }}"
-                                                alt="Thumbnail {{ $index + 1 }}"
-                                                class="w-full h-full object-cover">
-                                        </button>
-                                    @endforeach
-                                </div>
-                            </div>
-
-                            <!-- Dots Indicator (alternative to thumbnails for many images) -->
-                            @if ($this->getCurrentImageCount() > 8)
-                                <div class="mt-2 flex justify-center space-x-1">
-                                    @foreach ($currentImages as $index => $image)
-                                        <button onclick="goToImageIndex({{ $index }})"
-                                            class="w-2 h-2 rounded-full transition-all
-                                           {{ $index === $currentImageIndex ? 'bg-blue-500' : 'bg-gray-600 hover:bg-gray-400' }}">
-                                        </button>
-                                    @endforeach
-                                </div>
-                            @endif
-                        @endif
-
-                        <!-- Keyboard Navigation Instructions -->
-                        @if ($this->getCurrentImageCount() > 1)
-                            <div class="mt-2 text-center text-gray-400 text-xs">
-                                Use arrow keys to navigate or click thumbnails
-                            </div>
-                        @endif
                     </div>
                 </div>
-
-                <!-- Optimized Navigation Script -->
-                <script>
-                    // Client-side navigation functions to avoid database calls
-                    let debounceTimer;
-
-                    function navigateImage(direction) {
-                        clearTimeout(debounceTimer);
-                        debounceTimer = setTimeout(() => {
-                            if (direction === 'next') {
-                                @this.call('nextImage');
-                            } else if (direction === 'previous') {
-                                @this.call('previousImage');
-                            }
-                        }, 50); // Small debounce to prevent rapid clicking
-                    }
-
-                    function goToImageIndex(index) {
-                        clearTimeout(debounceTimer);
-                        debounceTimer = setTimeout(() => {
-                            @this.call('goToImage', index);
-                        }, 50);
-                    }
-
-                    // Keyboard navigation
-                    document.addEventListener('keydown', function(event) {
-                        if ({{ $showImageModal ? 'true' : 'false' }}) {
-                            if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-                                event.preventDefault();
-                                navigateImage('previous');
-                            } else if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
-                                event.preventDefault();
-                                navigateImage('next');
-                            } else if (event.key === 'Escape') {
-                                event.preventDefault();
-                                @this.call('closeImageGallery');
-                            }
-                        }
-                    });
-
-                    // Preload images for better performance
-                    @if ($showImageModal && !empty($currentImages))
-                        @foreach ($currentImages as $image)
-                            (new Image()).src = "{{ asset('storage/' . $image) }}";
-                        @endforeach
-                    @endif
-                </script>
             @endif
+
             <!-- Product Statistics -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
                 <div class="bg-base-100 p-4 rounded-lg shadow">
