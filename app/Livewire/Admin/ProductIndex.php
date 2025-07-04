@@ -19,7 +19,7 @@ class ProductIndex extends Component
     public $search = '';
     public $perPage = 10;
     public $sortBy = 'id';
-    public $sortDirection = 'asc';
+    public $sortDirection = 'desc';
 
     // Delete confirmation
     public $deletingProduct = null;
@@ -258,9 +258,38 @@ class ProductIndex extends Component
         return count($this->currentImages);
     }
 
+
+    public function getFirstImage($images)
+    {
+        if ($images->isEmpty()) {
+            return null;
+        }
+
+        $imagePath = $images->first()->image_path;
+
+        if (is_array($imagePath)) {
+            return $imagePath[0] ?? null;
+        }
+
+        if (is_string($imagePath) && !empty($imagePath)) {
+            if (json_decode($imagePath, true) !== null) {
+                $decoded = json_decode($imagePath, true);
+                return is_array($decoded) ? ($decoded[0] ?? null) : null;
+            }
+            return $imagePath;
+        }
+
+        return null;
+    }
+
+    public function getImageCount($product)
+    {
+        return count($this->getAllProductImages($product));
+    }
+
     public function getProductsProperty()
     {
-        $query = Product::with(['category','images'])
+        $query = Product::with(['category', 'images'])
             ->when($this->search, function ($query) {
                 $query->where(function ($q) {
                     $q->where('name', 'like', '%' . $this->search . '%')
@@ -315,33 +344,6 @@ class ProductIndex extends Component
         }
     }
 
-    public function getFirstImage($images)
-    {
-        if ($images->isEmpty()) {
-            return null;
-        }
-
-        $imagePath = $images->first()->image_path;
-
-        if (is_array($imagePath)) {
-            return $imagePath[0] ?? null;
-        }
-
-        if (is_string($imagePath) && !empty($imagePath)) {
-            if (json_decode($imagePath, true) !== null) {
-                $decoded = json_decode($imagePath, true);
-                return is_array($decoded) ? ($decoded[0] ?? null) : null;
-            }
-            return $imagePath;
-        }
-
-        return null;
-    }
-
-    public function getImageCount($product)
-    {
-        return count($this->getAllProductImages($product));
-    }
 
     public function render()
     {

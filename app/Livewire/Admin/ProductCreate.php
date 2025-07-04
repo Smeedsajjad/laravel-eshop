@@ -195,77 +195,51 @@ class ProductCreate extends Component
     // Save product with all temporary specs
     public function saveProduct()
     {
-        $this->resetErrorBag(['specs']);
+        $this->resetErrorBag(['specs', 'image_path']);
+        Log::info('Images received: ' . count($this->image_path)); // Debug log
 
-        // Only validate product fields, specs are already validated when added
-        $this->validate($this->getProductRules());
-
-
-        // Optional: Check if specs are required
-        if (empty($this->specs)) {
-            $this->addError('specs', 'Please add at least one product specification.');
-
-            // Dispatch error event for better UX
-            $this->dispatch('validation-error', [
-                'message' => 'Please add product specifications before saving.',
-                'field' => 'specs'
-            ]);
+        if (empty($this->image_path)) {
+            $this->addError('image_path', 'Please select at least one product image.');
+            $this->dispatch('validation-error', ['message' => 'At least one image is required.']);
             return;
         }
+
+        if (count($this->image_path) > 6) {
+            $this->addError('image_path', 'Maximum 6 images allowed.');
+            $this->dispatch('validation-error', ['message' => 'Maximum 6 images allowed.']);
+            return;
+        }
+
+        $this->validate($this->getProductRules());
+
+        if (empty($this->specs)) {
+            $this->addError('specs', 'Please add at least one specification.');
+            $this->dispatch('validation-error', ['message' => 'At least one specification is required.']);
+            return;
+        }
+
         try {
             DB::beginTransaction();
-
-            // Create the product
             $product = Product::create([
-                'name'             => $this->name,
-                'description'      => $this->description,
-                'price'            => $this->price,
-                'stock'            => $this->stock,
-                'category_id'      => $this->category_id,
-                'is_active'        => $this->is_active,
-                'sku'              => $this->sku ?: $this->generateSku(),
+                'name' => $this->name,
+                'description' => $this->description,
+                'price' => $this->price,
+                'stock' => $this->stock,
+                'category_id' => $this->category_id,
+                'is_active' => $this->is_active,
+                'sku' => $this->sku ?: $this->generateSku(),
             ]);
-
-            // Handle image uploads
-            if (!empty($this->image_path)) {
-                $this->handleImageUploads($product);
-            }
-
-            // Save all specs from temporary storage
-            if (!empty($this->specs)) {
-                $this->saveProductSpecs($product);
-            }
-
+            $this->handleImageUploads($product);
+            $this->saveProductSpecs($product);
             DB::commit();
 
-            // Success response
-            $specsCount = count($this->specs);
-            $productName = $product->name;
-
+            $this->dispatch('product-created', ['message' => "Product '{$product->name}' created successfully!"]);
             $this->resetForm();
-
-            $this->dispatch('product-created', [
-                'message' => "Product '{$productName}' created successfully with {$specsCount} specifications!",
-                'product_id' => $product->id
-            ]);
-            session()->flash('message', 'Product Created successfully!');
-
-            // Optional: Redirect after success
-            // return redirect()->route('admin.products.index');
-
+            session()->flash('message', 'Product created successfully!');
         } catch (\Exception $e) {
             DB::rollBack();
-
-            $this->dispatch('product-error', [
-                'message' => 'Failed to create product: ' . $e->getMessage(),
-                'type' => 'error'
-            ]);
-
-            $this->addError('product', 'Failed to create product: ' . $e->getMessage());
-            Log::error('Product creation failed: ' . $e->getMessage(), [
-                'product_data' => $this->all(),
-                'specs_count' => count($this->specs)
-            ]);
+            $this->dispatch('product-error', ['message' => 'Failed to create product: ' . $e->getMessage()]);
+            Log::error('Product creation failed: ' . $e->getMessage());
         }
     }
 
@@ -273,11 +247,19 @@ class ProductCreate extends Component
     private function handleImageUploads($product)
     {
         $imagePaths = [];
-        foreach ($this->image_path as $file) {
+        foreach ($this->image_path as $index => $file) {
             if ($file && $file->isValid()) {
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $path = $file->storeAs('products', $filename, 'public');
-                $imagePaths[] = $path;
+                try {
+                    $filename = time() . '_' . $index . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+                    $path = $file->storeAs('products', $filename, 'public');
+                    if (!$path) {
+                        throw new \Exception("Failed to store image: {$file->getClientOriginalName()}");
+                    }
+                    $imagePaths[] = $path;
+                } catch (\Exception $e) {
+                    Log::error('Image upload error: ' . $e->getMessage());
+                    throw $e; // Re-throw to trigger rollback
+                }
             }
         }
 
@@ -320,6 +302,7 @@ class ProductCreate extends Component
     // Reset the entire form
     public function resetForm()
     {
+        Log::info('Resetting form');
         $this->reset([
             'name',
             'description',
@@ -333,8 +316,8 @@ class ProductCreate extends Component
             'newAttribute',
             'newValue',
         ]);
-
         $this->resetValidation();
+        $this->dispatch('form-reset', ['message' => 'Form has been reset']);
     }
 
     // Helper methods

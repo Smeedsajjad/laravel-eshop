@@ -50,7 +50,12 @@ class Product extends Model
         return $query->where('is_active', true);
     }
 
-    public function specs()
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    public function attributeValues(): HasMany
     {
         return $this->hasMany(ProductAttributeValue::class);
     }

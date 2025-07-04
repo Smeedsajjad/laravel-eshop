@@ -74,7 +74,7 @@ Route::middleware(['auth', AdminMiddleware::class])
         Route::prefix('products')->name('products.')->group(function () {
             Route::get('/', ProductIndex::class)->name('index');
             Route::get('/create', ProductCreate::class)->name('create');
-            // Route::get('/{product}/edit', ProductEdit::class)->name('edit');
-            // Route::get('/{product}', ProductShow::class)->name('show');
+            Route::get('/{product}/edit', ProductEdit::class)->name('edit');
+            Route::get('/{product}', ProductShow::class)->name('show');
         });
     });

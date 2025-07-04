@@ -448,24 +448,17 @@
                                             <ul tabindex="0"
                                                 class="dropdown-content menu bg-base-100 rounded-box z-20 w-52 p-2 shadow-lg border border-base-content/10">
                                                 <li>
-                                                    <a href="{{ route('admin.products.index', $product->id) }}"
+                                                    <a href="{{ route('admin.products.show', $product) }}"
                                                         class="cursor-pointer">
                                                         <x-heroicon-o-eye class="size-4" />
                                                         View Details
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a wire:click.prevent="edit({{ $product->id }})"
-                                                        {{-- onclick="document.getElementById('edit_modal').showModal()" --}} class="cursor-pointer">
+                                                    <a href="{{ route('admin.products.edit', $product) }}"
+                                                        class="cursor-pointer">
                                                         <x-heroicon-o-pencil-square class="size-4" />
                                                         Edit
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{ route('admin.products.index', $product->id) }}"
-                                                        class="cursor-pointer">
-                                                        <x-heroicon-o-cog-6-tooth class="size-4" />
-                                                        Full Edit
                                                     </a>
                                                 </li>
                                                 <li>
