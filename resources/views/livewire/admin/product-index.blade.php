@@ -493,7 +493,7 @@
                                                 <p class="text-sm text-gray-400 mt-2">
                                                     Start by creating your first product.
                                                 </p>
-                                                <a href="{{ route('products.create') }}"
+                                                <a href="{{ route('admin.products.create') }}"
                                                     class="btn btn-primary btn-sm mt-3">
                                                     <x-heroicon-o-plus class="size-4 mr-2" />
                                                     Add Product
