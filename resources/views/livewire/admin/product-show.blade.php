@@ -295,34 +295,6 @@
                         </div>
                     </div>
 
-                    <!-- Product Specifications -->
-                    <div class="bg-base-100 p-6 rounded-lg shadow-lg">
-                        <h2 class="text-lg font-semibold text-gray-300 mb-4 flex items-center">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2">
-                                </path>
-                            </svg>
-                            Specifications
-                        </h2>
-                        @if ($product->attributeValues->isNotEmpty())
-                            <div class="space-y-2">
-                                @foreach ($product->attributeValues as $attributeValue)
-                                    @if ($attributeValue->attribute)
-                                        <div class="flex justify-between">
-                                            <span
-                                                class="text-sm text-gray-400">{{ $attributeValue->attribute->type }}</span>
-                                            <span
-                                                class="text-sm text-gray-300">{{ $attributeValue->value ?? 'N/A' }}</span>
-                                        </div>
-                                    @endif
-                                @endforeach
-                            </div>
-                        @else
-                            <p class="text-gray-500">No specifications available.</p>
-                        @endif
-                    </div>
-
                     <!-- Metadata -->
                     <div class="bg-base-100 p-6 rounded-lg shadow-lg">
                         <h2 class="text-lg font-semibold text-gray-300 mb-4 flex items-center">
@@ -368,7 +340,8 @@
                             @endif
                         </div>
                     </div>
-
+                    
+                    <!-- Product Specifications -->
                     <div class="bg-base-100 p-6 rounded-lg shadow-lg">
                         <h2 class="text-lg font-semibold text-gray-300 mb-4 flex items-center">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

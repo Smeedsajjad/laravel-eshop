@@ -21,10 +21,50 @@
                 box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
             }
         </style>
+        <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2">
+            @if (session()->has('success'))
+                <div x-data="{ show: true }" x-show="show" x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 transform translate-x-full"
+                    x-transition:enter-end="opacity-100 transform translate-x-0"
+                    x-transition:leave="transition ease-in duration-200"
+                    x-transition:leave-start="opacity-100 transform translate-x-0"
+                    x-transition:leave-end="opacity-0 transform translate-x-full" x-init="setTimeout(() => show = false, 5000)"
+                    class="bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-3 max-w-md">
+                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span class="font-medium">{{ session('success') }}</span>
+                    <button @click="show = false" class="text-green-200 hover:text-white">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            @endif
 
-        <!-- Alert Container -->
-        <div id="alert-container" class="fixed top-4 right-4 z-50 space-y-2"></div>
-
+            @if (session()->has('error'))
+                <div x-data="{ show: true }" x-show="show" x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 transform translate-x-full"
+                    x-transition:enter-end="opacity-100 transform translate-x-0"
+                    x-transition:leave="transition ease-in duration-200"
+                    x-transition:leave-start="opacity-100 transform translate-x-0"
+                    x-transition:leave-end="opacity-0 transform translate-x-full" x-init="setTimeout(() => show = false, 5000)"
+                    class="bg-red-600 text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-3 max-w-md">
+                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                    <span class="font-medium">{{ session('error') }}</span>
+                    <button @click="show = false" class="text-red-200 hover:text-white">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            @endif
+        </div>
         <!-- Header -->
         <div class="flex flex-col sm:flex-row w-full items-start sm:items-center justify-between mb-6">
             <div>
@@ -127,7 +167,8 @@
                                     d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </div>
-                        <input type="hidden" name="category_id" x-model="selected" wire:model.defer="category_id" />
+                        <input type="hidden" name="category_id" x-model="selected"
+                            wire:model.defer="category_id" />
 
                         <div x-show="open" @click.away="open = false"
                             class="absolute z-50 mt-1 w-full bg-base-100 border border-base-content/10 rounded shadow-lg">
@@ -142,7 +183,8 @@
                                         class="px-4 py-2 cursor-pointer hover:bg-base-200"
                                         :class="{ 'bg-base-200': selected == cat.id }" x-text="cat.name"></li>
                                 </template>
-                                <li x-show="filtered.length === 0" class="px-4 py-2 text-gray-400">No categories found.
+                                <li x-show="filtered.length === 0" class="px-4 py-2 text-gray-400">No categories
+                                    found.
                                 </li>
                             </ul>
                         </div>
@@ -331,7 +373,7 @@
                     </div>
 
                     <!-- Create New Attribute Sidebar: 25% on large screens -->
-                    <div class="w-full lg:w-1/4 p-4 mt-6 bg-base-100 lg:p-6 shadow-lg rounded-lg space-y-4">
+                    <div class="w-full lg:w-1/4 p-4 bg-base-100 lg:p-6 shadow-lg rounded-lg space-y-4">
                         <h4 class="text-md font-semibold text-gray-300 mb-4">Create New Attribute</h4>
 
                         <div class="space-y-3">
@@ -718,5 +760,22 @@
                     }
                 }
             }
+            document.addEventListener('DOMContentLoaded', function() {
+                // Handle form submission
+                const form = document.querySelector('form[wire\\:submit\\.prevent="update"]');
+                if (form) {
+                    form.addEventListener('submit', function(e) {
+                        // Disable submit button to prevent double submission
+                        const submitBtn = form.querySelector('button[type="submit"]');
+                        if (submitBtn) {
+                            submitBtn.disabled = true;
+                            // Re-enable after 3 seconds as fallback
+                            setTimeout(() => {
+                                submitBtn.disabled = false;
+                            }, 3000);
+                        }
+                    });
+                }
+            });
         </script>
     </div>
