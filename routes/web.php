@@ -8,6 +8,7 @@ use App\Livewire\Admin\ProductEdit;
 use App\Livewire\Admin\ProductIndex;
 use App\Livewire\Admin\Profile;
 use App\Livewire\Admin\ProductShow;
+use App\Livewire\Public\About;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -78,3 +79,69 @@ Route::middleware(['auth', AdminMiddleware::class])
             Route::get('/{product}', ProductShow::class)->name('show');
         });
     });
+/*
+|--------------------------------------------------------------------------
+| Public Pages (no auth required)
+|--------------------------------------------------------------------------
+*/
+Route::get('/about', About::class)->name('about');
+// Route::get('/contact', \App\Http\Livewire\Public\Contact::class)->name('contact');
+// Route::get('/privacy-policy', \App\Http\Livewire\Public\PrivacyPolicy::class)
+//      ->name('privacy.policy');
+// add other static or Livewire‑driven pages here…
+
+/*
+|--------------------------------------------------------------------------
+| Shopping & Catalog (optional: no auth required)
+|--------------------------------------------------------------------------
+| If you want browsing products & categories open to guests:
+*/
+// Route::get('/products',   \App\Http\Livewire\Public\ProductListing::class)
+//      ->name('products.listing');
+// Route::get('/products/{product}', \App\Http\Livewire\Public\ProductDetail::class)
+//      ->name('products.detail');
+// Route::get('/categories', \App\Http\Livewire\Public\CategoryListing::class)
+//      ->name('categories.listing');
+// …and so on…
+
+/*
+|--------------------------------------------------------------------------
+| User Area (auth protected)
+|--------------------------------------------------------------------------
+*/
+// Route::middleware(['auth', config('jetstream.auth_session')])
+//      ->name('user.')
+//      ->group(function () {
+
+//     // Dashboard / Account Home
+//     Route::get('/account', \App\Http\Livewire\User\Dashboard::class)
+//          ->name('dashboard');
+
+//     // Profile settings
+//     Route::get('/account/profile', \App\Http\Livewire\User\Profile::class)
+//          ->name('profile');
+
+//     // Order history & tracking
+//     Route::get('/account/orders',
+//                \App\Http\Livewire\User\OrderHistory::class)
+//          ->name('orders.history');
+//     Route::get('/account/orders/{order}',
+//                \App\Http\Livewire\User\OrderDetail::class)
+//          ->name('orders.detail');
+
+//     // Wishlist
+//     Route::get('/account/wishlist',
+//                \App\Http\Livewire\User\Wishlist::class)
+//          ->name('wishlist');
+
+//     // Cart & Checkout (you may or may not require auth for cart)
+//     Route::get('/cart', \App\Http\Livewire\User\Cart::class)
+//          ->name('cart');
+//     Route::get('/checkout', \App\Http\Livewire\User\Checkout::class)
+//          ->name('checkout');
+//     Route::get('/order-confirmation/{order}',
+//                \App\Http\Livewire\User\OrderConfirmation::class)
+//          ->name('order.confirmation');
+
+    // Any additional protected pages…
+// });

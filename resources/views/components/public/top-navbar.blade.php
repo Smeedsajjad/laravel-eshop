@@ -1,0 +1,88 @@
+<div>
+    <!-- Navbar -->
+    <div class="navbar bg-white w-full">
+        <div class="max-w-7xl mx-auto w-full px-8">
+            <!-- Mobile Layout (< lg) -->
+            <div class="flex lg:hidden flex-row w-full items-center justify-between">
+                <div class="flex-none">
+                    <label for="my-drawer-3" aria-label="open sidebar"
+                        class="btn btn-square border-none !shadow-none !bg-transparent">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            class="inline-block h-6 w-6" stroke="#495057" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </label>
+                </div>
+
+                <div class="flex-1 flex justify-center">
+                    <a wire:prevent class="w-[85px] h-[75px]">
+                        <img src="{{ asset('images/Untitled_1.png') }}" alt="Brand Logo"
+                            class="rounded-full w-full h-fit">
+                    </a>
+                </div>
+
+                <div class="flex flex-row gap-3">
+                    <x-heroicon-o-shopping-cart class="size-5 text-gray-600" />
+                    <x-heroicon-o-user class="size-5 text-gray-600" />
+                </div>
+            </div>
+
+            <!-- Desktop Layout (>= lg) -->
+            <div class="hidden lg:flex flex-row w-full items-center justify-between">
+                <!-- Logo -->
+                <a wire:prevent class="w-[85px] h-[75px]">
+                    <img src="{{ asset('images/Untitled_1.png') }}" alt="Brand Logo" class="rounded-full w-full h-fit">
+                </a>
+
+                <!-- Search Input -->
+                <div class="flex-1 w-full px-24">
+                    <label class="input rounded-full border-purple-600 border-2 w-full bg-white">
+                        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <g stroke-linejoin="round" stroke-linecap="round" stroke="#45474c" stroke-width="2.5"
+                                fill="none" stroke="currentColor">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.3-4.3"></path>
+                            </g>
+                        </svg>
+                        <input type="search" class="grow" placeholder="Search" />
+                        <kbd class="kbd kbd-sm !focus:outline-purple-600 bg-purple-600">⌘</kbd>
+                        <kbd class="kbd kbd-sm bg-purple-600">K</kbd>
+                    </label>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="flex-none">
+                    <div class="flex text-gray-950 flex-row gap-6 items-center">
+                        <a class="font-semibold hover:text-purple-600 transition-colors" wire:prevent>
+                            Support
+                        </a>
+                        <a class="font-semibold hover:text-purple-600 transition-colors" wire:prevent>
+                            About Us
+                        </a>
+                        <a class="font-semibold hover:text-purple-600 transition-colors" wire:prevent>
+                            FAQs
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Search Bar -->
+    <div class="lg:hidden bg-softPurple">
+        <div class="max-w-7xl mx-auto w-full px-4 py-3">
+            <label class="input rounded-full bg-white w-full">
+                <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g stroke-linejoin="round" stroke-linecap="round" stroke="#45474c" stroke-width="2.5" fill="none"
+                        stroke="currentColor">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                    </g>
+                </svg>
+                <input type="search" class="grow" placeholder="Search" />
+                <kbd class="kbd kbd-sm bg-purple-600">⌘</kbd>
+                <kbd class="kbd kbd-sm bg-purple-600">K</kbd>
+            </label>
+        </div>
+    </div>
+</div>
