@@ -12,7 +12,21 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
+    <style>
+        .swiper-pagination-bullet {
+            background-color: #6B21A8;
+            /* Tailwind purple-800 */
+            opacity: 0.7;
+        }
+
+        .swiper-pagination-bullet-active {
+            background-color: #6B21A8;
+            opacity: 1;
+        }
+    </style>
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -28,8 +42,8 @@
         <div class="drawer-content flex flex-col">
             {{-- Navbar --}}
             @include('components.public.top-navbar')
+            @include('components.public.main-navbar')
 
-            <!-- Page content here -->
             <!-- Page Heading -->
             @if (isset($header))
                 <header class="bg-white shadow">
@@ -52,7 +66,25 @@
     </div>
 
     @stack('modals')
-    @livewireScripts
+    @livewireScripts <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                dynamicBullets: true,
+            },
+            simulateTouch: true,
+            grabCursor: true,
+        });
+    </script>
 </body>
 
 </html>
