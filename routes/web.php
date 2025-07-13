@@ -9,6 +9,10 @@ use App\Livewire\Admin\ProductIndex;
 use App\Livewire\Admin\Profile;
 use App\Livewire\Admin\ProductShow;
 use App\Livewire\Public\About;
+use App\Livewire\Public\Category;
+use App\Livewire\Public\Contact;
+use App\Livewire\Public\Home;
+use App\Livewire\Public\Products;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -26,7 +30,7 @@ Route::get('/', function () {
     if (Auth::check() && Auth::user()->isAdmin()) {
         return redirect()->route('admin.dashboard');
     }
-    return view('welcome');
+    return route('home');
 })->name('home');
 
 /*
@@ -44,14 +48,12 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        $user = Auth::user();
-        if ($user->isAdmin()) {
+    Route::get('/', function () {
+        if (Auth::check() && Auth::user()->isAdmin()) {
             return redirect()->route('admin.dashboard');
-        } else {
-            return view('welcome');
         }
-    })->name('dashboard');
+        return redirect()->route('home');
+    });
 });
 
 /*
@@ -84,8 +86,11 @@ Route::middleware(['auth', AdminMiddleware::class])
 | Public Pages (no auth required)
 |--------------------------------------------------------------------------
 */
+Route::get('/home', Home::class)->name('home');
 Route::get('/about', About::class)->name('about');
-// Route::get('/contact', \App\Http\Livewire\Public\Contact::class)->name('contact');
+Route::get('/contact', Contact::class)->name('contact');
+Route::get('/category', Category::class)->name('category');
+Route::get('/products', Products::class)->name('products');
 // Route::get('/privacy-policy', \App\Http\Livewire\Public\PrivacyPolicy::class)
 //      ->name('privacy.policy');
 // add other static or Livewire‑driven pages here…

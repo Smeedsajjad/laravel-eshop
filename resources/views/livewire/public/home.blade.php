@@ -1,3 +1,5 @@
 <div>
-    here i am
+    <!-- Swiper -->
+    @include('components.public.swiper')
+    Home
 </div>

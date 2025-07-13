@@ -5,23 +5,37 @@
         <div class="flex-1 w-full lg:w-auto">
             <ul class="flex flex-wrap justify-center lg:justify-start gap-3 text-purple-700">
                 <li>
-                    <a href="#" class="bg-white py-3 px-4 rounded-full font-semibold block">Home</a>
+                    <a href="{{ route('home') }}" wire:navigate 
+                        class="py-3 px-4 rounded-full font-semibold block transition-all duration-500 ease-in-out {{ request()->routeIs('home') ? 'bg-white' : 'hover:bg-white' }}">
+                        Home
+                    </a>
                 </li>
                 <li>
-                    <a href="#" class="bg-white py-3 px-4 rounded-full font-semibold block">Category</a>
+                    <a href="{{ route('category') }}" wire:navigate 
+                        class="py-3 px-4 rounded-full font-semibold block transition-all duration-500 ease-in-out {{ request()->routeIs('category.index') ? 'bg-white' : 'hover:bg-white' }}">
+                        Category
+                    </a>
                 </li>
                 <li>
-                    <a href="#" class="bg-white py-3 px-4 rounded-full font-semibold block">Products</a>
+                    <a href="{{ route('products') }}" wire:navigate 
+                        class="py-3 px-4 rounded-full font-semibold block transition-all duration-500 ease-in-out {{ request()->routeIs('products.index') ? 'bg-white' : 'hover:bg-white' }}">
+                        Products
+                    </a>
                 </li>
                 <li>
-                    <a href="#" class="bg-white py-3 px-4 rounded-full font-semibold block">Contact
-                        Us</a>
+                    <a href="{{ route('contact') }}" wire:navigate 
+                        class="py-3 px-4 rounded-full font-semibold block transition-all duration-500 ease-in-out {{ request()->routeIs('contact') ? 'bg-white' : 'hover:bg-white' }}">
+                        Contact Us
+                    </a>
                 </li>
                 <li>
-                    <a href="#" class="bg-white py-3 px-4 rounded-full font-semibold block">About
-                        Us</a>
+                    <a href="{{ route('about') }}" wire:navigate 
+                        class="py-3 px-4 rounded-full font-semibold block transition-all duration-500 ease-in-out {{ request()->routeIs('about') ? 'bg-white' : 'hover:bg-white' }}">
+                        About Us
+                    </a>
                 </li>
             </ul>
+
         </div>
 
         <!-- Right Side - Icons -->

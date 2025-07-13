@@ -18,7 +18,6 @@
     <style>
         .swiper-pagination-bullet {
             background-color: #6B21A8;
-            /* Tailwind purple-800 */
             opacity: 0.7;
         }
 
@@ -34,7 +33,7 @@
     @livewireStyles
 </head>
 
-<body class="min-h-screen antialiased">
+<body class="min-h-screen antialiased bg-white">
     {{-- NAVIGATION MENU --}}
     <div class="drawer">
         {{-- TOGGLE --}}
