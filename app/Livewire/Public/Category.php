@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Public;
 
+use App\Models\Category as ModelsCategory;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -11,6 +12,9 @@ class Category extends Component
 
     public function render()
     {
-        return view('livewire.public.category');
+        $category = ModelsCategory::get();
+        return view('livewire.public.category',[
+            'category' => $category,
+        ]);
     }
 }

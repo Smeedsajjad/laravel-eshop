@@ -53,9 +53,10 @@
             @endif
 
             <!-- Page Content -->
-            <main>
+            <main class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-5">
                 {{ $slot }}
             </main>
+            @include('components.public.footer')
         </div>
 
         <div class="drawer-side">
