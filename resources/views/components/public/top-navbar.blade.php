@@ -14,7 +14,7 @@
                 </div>
 
                 <div class="flex-1 flex justify-center">
-                    <a wire:prevent class="w-[85px] h-[75px]">
+                    <a href="{{ route('contact') }}" wire:navigate class="w-[85px] h-[75px]">
                         <img src="{{ asset('images/Untitled_1.png') }}" alt="Brand Logo"
                             class="rounded-full w-full h-fit">
                     </a>
@@ -29,7 +29,7 @@
             <!-- Desktop Layout (>= lg) -->
             <div class="hidden lg:flex flex-row w-full items-center justify-between">
                 <!-- Logo -->
-                <a wire:prevent class="w-[85px] h-[75px]">
+                <a href="{{ route('contact') }}" wire:navigate class="w-[85px] h-[75px]">
                     <img src="{{ asset('images/Untitled_1.png') }}" alt="Brand Logo" class="rounded-full w-full h-fit">
                 </a>
 
@@ -52,13 +52,13 @@
                 <!-- Navigation Links -->
                 <div class="flex-none">
                     <div class="flex text-gray-950 flex-row gap-6 items-center">
-                        <a class="font-semibold hover:text-purple-600 transition-colors" wire:prevent>
+                        <a href="{{ route('contact') }}" class="font-semibold hover:text-purple-600 transition-colors" wire:navigate>
                             Support
                         </a>
-                        <a class="font-semibold hover:text-purple-600 transition-colors" wire:prevent>
+                        <a href="{{ route('contact') }}" class="font-semibold hover:text-purple-600 transition-colors" wire:navigate>
                             About Us
                         </a>
-                        <a class="font-semibold hover:text-purple-600 transition-colors" wire:prevent>
+                        <a href="{{ route('contact') }}" class="font-semibold hover:text-purple-600 transition-colors" wire:navigate>
                             FAQs
                         </a>
                     </div>

@@ -70,13 +70,13 @@
             <div>
                 <h3 class="font-semibold text-gray-900 mb-4">Company</h3>
                 <ul class="space-y-2">
-                    <li><a href="{{ route('about') }}" class="text-gray-600 hover:text-purple-600 transition-colors">About
+                    <li><a href="{{ route('about') }}" wire:navigate class="text-gray-600 hover:text-purple-600 transition-colors">About
                             Us</a></li>
-                    <li><a href="{{ route('contact') }}" class="text-gray-600 hover:text-purple-600 transition-colors">Contact Us</a>
+                    <li><a href="{{ route('contact') }}" wire:navigate class="text-gray-600 hover:text-purple-600 transition-colors">Contact Us</a>
                     </li>
-                    <li><a href="{{ route('products') }}" class="text-gray-600 hover:text-purple-600 transition-colors">Products</a>
+                    <li><a href="{{ route('products') }}" wire:navigate class="text-gray-600 hover:text-purple-600 transition-colors">Products</a>
                     </li>
-                    <li><a href="{{ route('category') }}" class="text-gray-600 hover:text-purple-600 transition-colors">Categories</a>
+                    <li><a href="{{ route('category') }}" wire:navigate class="text-gray-600 hover:text-purple-600 transition-colors">Categories</a>
                     </li>
                 </ul>
             </div>
@@ -85,14 +85,14 @@
             <div>
                 <h3 class="font-semibold text-gray-900 mb-4">Legal</h3>
                 <ul class="space-y-2">
-                    <li><a href="#" class="text-gray-600 hover:text-purple-600 transition-colors">Privacy
+                    <li><a href="{{ route('privacy-policy') }}" wire:navigate class="text-gray-600 hover:text-purple-600 transition-colors">Privacy
                             Policy</a>
                     </li>
-                    <li><a href="#" class="text-gray-600 hover:text-purple-600 transition-colors">Terms
+                    <li><a href="{{ route('terms-and-conditions') }}" wire:navigate class="text-gray-600 hover:text-purple-600 transition-colors">Terms
                             & Condition</a></li>
-                    <li><a href="#" class="text-gray-600 hover:text-purple-600 transition-colors">Return
+                    <li><a href="{{ route('return-policy') }}" wire:navigate class="text-gray-600 hover:text-purple-600 transition-colors">Return
                             Policy</a></li>
-                    <li><a href="#" class="text-gray-600 hover:text-purple-600 transition-colors">Shipping
+                    <li><a href="{{ route('shipping-policy') }}" wire:navigate  class="text-gray-600 hover:text-purple-600 transition-colors">Shipping
                             Policy</a>
                     </li>
                 </ul>

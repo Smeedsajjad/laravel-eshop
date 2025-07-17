@@ -12,7 +12,11 @@ use App\Livewire\Public\About;
 use App\Livewire\Public\Category;
 use App\Livewire\Public\Contact;
 use App\Livewire\Public\Home;
+use App\Livewire\Public\PrivacyPolicy;
 use App\Livewire\Public\Products;
+use App\Livewire\Public\ReturnPolicy;
+use App\Livewire\Public\ShippingPolicy;
+use App\Livewire\Public\TermsCondition;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -91,9 +95,10 @@ Route::get('/about', About::class)->name('about');
 Route::get('/contact', Contact::class)->name('contact');
 Route::get('/category', Category::class)->name('category');
 Route::get('/products', Products::class)->name('products');
-// Route::get('/privacy-policy', \App\Http\Livewire\Public\PrivacyPolicy::class)
-//      ->name('privacy.policy');
-// add other static or Livewire‑driven pages here…
+Route::get('/privacy-policy', PrivacyPolicy::class)->name('privacy-policy');
+Route::get('/return-policy', ReturnPolicy::class)->name('return-policy');
+Route::get('/shipping-policy', ShippingPolicy::class)->name('shipping-policy');
+Route::get('/terms-condition', TermsCondition::class)->name('terms-and-conditions');
 
 /*
 |--------------------------------------------------------------------------
