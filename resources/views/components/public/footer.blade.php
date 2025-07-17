@@ -2,7 +2,7 @@
     <!-- Top Section -->
     <div class="max-w-7xl mx-auto px-4 py-8">
         <!-- Contact Information Row -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 items-center">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 items-center sm:justify-items-start justify-items-center">
             <!-- Find Us -->
             <div class="flex items-start space-x-3">
                 <div class="rounded-full p-2 mt-1">
@@ -43,8 +43,8 @@
         <hr class="border-gray-200 mb-8">
 
         <!-- Links Section -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="md:col-span-1 border-r">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 items-center text-center justify-items-center">
+            <div class="md:col-span-1 border-r sm:border-r-0">
                 <div class="mb-0">
                     <div class="flex items-center space-x-2 mb-0 w-[150px] h-[150px]">
                             <img src="{{ asset('images/Untitled_1.png') }}" class="w-full h-full" alt="">
@@ -108,6 +108,8 @@
                     <li><a href="#" class="text-gray-600 hover:text-purple-600 transition-colors">iOS
                             App</a></li>
                 </ul>
+            </div>
+            <div>
             </div>
         </div>
     </div>
