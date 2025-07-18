@@ -25,6 +25,10 @@
             background-color: #6B21A8;
             opacity: 1;
         }
+
+        .text {
+            color: black !important;
+        }
     </style>
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
