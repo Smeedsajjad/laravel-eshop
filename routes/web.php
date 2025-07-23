@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Middleware\AdminMiddleware;
 use App\Livewire\Admin\CategoryManagement;
 use App\Livewire\Admin\Dashboard;
@@ -12,12 +13,11 @@ use App\Livewire\Public\Category;
 use App\Livewire\Public\Contact;
 use App\Livewire\Public\Home;
 use App\Livewire\Public\PrivacyPolicy;
-use App\Livewire\Public\Products; // Note: Using Products, not ProductIndex
 use App\Livewire\Public\ProductsList;
 use App\Livewire\Public\ReturnPolicy;
 use App\Livewire\Public\ShippingPolicy;
 use App\Livewire\Public\TermsCondition;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Container\Attributes\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,11 +25,10 @@ use Illuminate\Support\Facades\Route;
 | Public Routes (No Authentication Required)
 |--------------------------------------------------------------------------
 */
-Route::get('/', Home::class)->name('home'); // Simplified to render Home component directly
+
+Route::get('/', Home::class)->name('home');
 Route::get('/about', About::class)->name('about');
 Route::get('/contact', Contact::class)->name('contact');
-Route::get('/category', Category::class)->name('category');
-Route::get('/products', ProductsList::class)->name('products'); // Fixed: Use Products, renamed to avoid conflict
 Route::get('/privacy-policy', PrivacyPolicy::class)->name('privacy-policy');
 Route::get('/return-policy', ReturnPolicy::class)->name('return-policy');
 Route::get('/shipping-policy', ShippingPolicy::class)->name('shipping-policy');
@@ -59,23 +58,12 @@ Route::middleware(['auth', AdminMiddleware::class])
 
 /*
 |--------------------------------------------------------------------------
-| Jetstream Authentication Routes
-|--------------------------------------------------------------------------
-*/
-
-/*
-|--------------------------------------------------------------------------
 | Shopping & Catalog (optional: no auth required)
 |--------------------------------------------------------------------------
 | If you want browsing products & categories open to guests:
 */
-// Route::get('/products',   \App\Http\Livewire\Public\ProductListing::class)
-//      ->name('products.listing');
-// Route::get('/products/{product}', \App\Http\Livewire\Public\ProductDetail::class)
-//      ->name('products.detail');
-// Route::get('/categories', \App\Http\Livewire\Public\CategoryListing::class)
-//      ->name('categories.listing');
-// …and so on…
+Route::get('/category', Category::class)->name('category');
+Route::get('/products', ProductsList::class)->name('products');
 
 /*
 |--------------------------------------------------------------------------

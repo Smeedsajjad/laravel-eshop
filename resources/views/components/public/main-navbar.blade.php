@@ -78,7 +78,7 @@
                                 <li class="menu-title text-xs text-gray-500">{{ __('Manage Account') }}</li>
 
                                 @if (auth()->user()->isAdmin())
-                                    <li><a href="{{ route('admin.profile') }}">{{ __('Profile') }}</a></li>
+                                    <li><a class="text-gray-600 focus:bg-white" href="{{ route('admin.profile') }}">{{ __('Profile') }}</a></li>
                                 @else
                                     <li><a class="text-gray-600 focus:bg-white" href="{{ route('profile.show') }}">{{ __('Profile') }}</a></li>
                                 @endif
