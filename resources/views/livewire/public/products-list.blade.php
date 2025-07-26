@@ -46,7 +46,23 @@
             background-color: #9333ea;
         }
     </style>
-    <h1 class="text-black text-3xl font-semibold">Product Listing</h1>
+    <div class="breadcrumbs text-lg text-purple-600 mb-6">
+        <ul>
+            @if($category && ($category->slug || $category->cat_name))
+            <li><a wire:navigate href="{{ route('home') }}">Home</a></li>
+            <li><a wire:navigate href="{{ route('products') }}">Products</a></li>
+            <li class="text-gray-500">{{ $category->cat_name}}</li>
+            @else
+            <li><a wire:navigate href="{{ route('home') }}">Home</a></li>
+            <li><a wire:navigate href="{{ route('products') }}">Products</a></li>
+            @endif
+        </ul>
+    </div>
+      @if($category && ($category->slug || $category->cat_name))
+            <h1 class="text-black text-3xl font-semibold">{{ $category->cat_name }}</h1>
+            @else
+            <h1 class="text-black text-3xl font-semibold">Product Listing</h1>
+            @endif
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-8 text-black">
         <!-- FILTERS PANEL -->

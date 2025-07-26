@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Public;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductAttribute;
 use Livewire\Attributes\Layout;
@@ -21,9 +22,15 @@ class ProductsList extends Component
     public $allMax;
     public $selectedFilters = [];
     public $sortBy = '';
+    public $categorySlug;
+    public $category;
 
-    public function mount()
+    public function mount($slug = null)
     {
+        $this->categorySlug = $slug;
+        $this->category     = $slug
+            ? Category::where('slug', $slug)->firstOrFail()
+            : null;
         $this->allMin = Product::min('price') ?? 0;
         $this->allMax = Product::max('price') ?? 1000;
         $this->selectedFilters = [];
@@ -66,7 +73,13 @@ class ProductsList extends Component
     public function render()
     {
         $query = Product::query()->where('is_active', true);
-
+        if ($this->category) {
+            $query->whereHas(
+                'category',
+                fn($q) =>
+                $q->where('id', $this->category->id)
+            );
+        }
         // Price filter
         if ($this->minPrice !== '' || $this->maxPrice !== '') {
             $min = $this->minPrice !== '' ? (float) $this->minPrice : 0;

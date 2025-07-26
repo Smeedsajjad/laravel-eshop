@@ -64,6 +64,7 @@ Route::middleware(['auth', AdminMiddleware::class])
 | If you want browsing products & categories open to guests:
 */
 Route::get('/category', Category::class)->name('category');
+Route::get('/category/{slug}', ProductsList::class)->name('category.products');
 Route::get('/products', ProductsList::class)->name('products');
 Route::get('/products/{product:slug}', ProductDetails::class)->name('product.details');
 

@@ -50,6 +50,8 @@
 <div wire:loading.remove>
     <div class="grid grid-auto-fit gap-[20px] justify-start mt-6">
         @forelse ($category as $cat)
+          <a wire:navigate href="{{ route('category.products', $cat->slug) }}">
+
         <div
             class="card cursor-pointer relative bg-transparent w-96 max-w-full mx-auto shadow-sm rounded-xl overflow-hidden group">
             <figure class="w-full h-64 overflow-hidden">
@@ -70,6 +72,7 @@
                 </div>
             </div>
         </div>
+        </a>
         @empty
         <div class="flex flex-col items-center justify-center text-center col-span-full py-16">
             <svg class="w-20 h-20 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
