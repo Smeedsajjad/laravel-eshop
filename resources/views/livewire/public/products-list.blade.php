@@ -181,62 +181,67 @@
         @forelse ($products as $product)
         <div
             class="card bg-white rounded-lg overflow-hidden relative group shadow-sm hover:shadow-md transition-shadow">
-            <!-- Heart icon -->
+
+            <!-- Heart icon for wishlist -->
             <div class="absolute top-3 left-3 z-10">
-                <x-heroicon-o-heart
+                <x-heroicon-o-heart wire:click.stop="{{ $product->id }}"
                     class="size-8 heart-icon rounded-full p-1.5 bg-white/80 backdrop-blur cursor-pointer hover:bg-white transition-colors" />
             </div>
 
-            <figure class="h-48">
-                @php
-                $firstImagePath = null;
-                $decodedImages = json_decode($product->images, true);
-                if (is_array($decodedImages) && count($decodedImages) > 0) {
-                $firstImageObject = $decodedImages[0];
-                if (isset($firstImageObject['image_path'])) {
-                $imagePathsArray = json_decode($firstImageObject['image_path'], true);
-                if (is_array($imagePathsArray) && count($imagePathsArray) > 0) {
-                $firstImagePath = $imagePathsArray[0];
-                }
-                }
-                }
-                @endphp
-                <img src="{{ $firstImagePath ? Storage::url($firstImagePath) : asset('images/no-image.webp') }}"
-                    alt="{{ $product->name }}"
-                    class="w-full h-full object-cover transition-transform group-hover:scale-105" />
-            </figure>
+            <!-- Clickable area for redirect -->
+            <a wire:navigate href="{{ route('product.details', $product->slug) }}" class="block">
+                <figure class="h-48">
+                    @php
+                    $firstImagePath = null;
+                    $decodedImages = json_decode($product->images, true);
+                    if (is_array($decodedImages) && count($decodedImages) > 0) {
+                    $firstImageObject = $decodedImages[0];
+                    if (isset($firstImageObject['image_path'])) {
+                    $imagePathsArray = json_decode($firstImageObject['image_path'], true);
+                    if (is_array($imagePathsArray) && count($imagePathsArray) > 0) {
+                    $firstImagePath = $imagePathsArray[0];
+                    }
+                    }
+                    }
+                    @endphp
+                    <img src="{{ $firstImagePath ? Storage::url($firstImagePath) : asset('images/no-image.webp') }}"
+                        alt="{{ $product->name }}"
+                        class="w-full h-full object-cover transition-transform group-hover:scale-105" />
+                </figure>
 
-            <div class="card-body py-4 px-4">
-                <h2 class="card-title text-lg font-semibold mb-2 line-clamp-2">{{ $product->name }}</h2>
-                <p class="text-purple-600 font-bold text-lg mb-2">${{ number_format($product->price, 2) }}</p>
-                <p class="text-sm text-gray-500 mb-4 line-clamp-2">
-                    {{ Str::limit($product->description, 80) }}
-                </p>
+                <div class="card-body py-4 px-4">
+                    <h2 class="card-title text-lg font-semibold mb-2 line-clamp-2">{{ $product->name }}</h2>
+                    <p class="text-purple-600 font-bold text-lg mb-2">${{ number_format($product->price, 2) }}</p>
+                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">
+                        {{ Str::limit($product->description, 80) }}
+                    </p>
 
-                <!-- Product attributes (if any) -->
-                @if($product->attributeValues->count() > 0)
-                <div class="flex flex-wrap gap-1 mb-3">
-                    @foreach($product->attributeValues->take(3) as $attr)
-                    <span class="badge badge-xs badge-outline">{{ $attr->value }}</span>
-                    @endforeach
-                    @if($product->attributeValues->count() > 3)
-                    <span class="badge badge-xs badge-ghost">+{{ $product->attributeValues->count() - 3 }}</span>
+                    @if($product->attributeValues->count() > 0)
+                    <div class="flex flex-wrap gap-1 mb-3">
+                        @foreach($product->attributeValues->take(3) as $attr)
+                        <span class="badge badge-xs badge-outline">{{ $attr->value }}</span>
+                        @endforeach
+                        @if($product->attributeValues->count() > 3)
+                        <span class="badge badge-xs badge-ghost">+{{ $product->attributeValues->count() - 3 }}</span>
+                        @endif
+                    </div>
                     @endif
                 </div>
-                @endif
+            </a>
 
-                <div class="card-actions">
-                    <button
-                        class="subscribe-btn btn bg-purple-600 hover:bg-purple-700 text-white btn-block h-8 border-0 flex items-center justify-center">
-                        <span class="subscribe-text">Subscribe</span>
-                        <svg class="cart-icon h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5H21M9 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM20.5 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
-                        </svg>
-                    </button>
-                </div>
+            <!-- Add to Cart Button -->
+            <div class="card-actions px-4 pb-4">
+                <button wire:click.stop="{{ $product->id }}"
+                    class="subscribe-btn btn bg-purple-600 hover:bg-purple-700 text-white btn-block h-8 border-0 flex items-center justify-center z-10">
+                    <span class="subscribe-text">Add in Cart</span>
+                    <svg class="cart-icon h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5H21M9 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM20.5 19.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+                    </svg>
+                </button>
             </div>
         </div>
+
         @empty
         <div class="flex flex-col items-center justify-center text-center col-span-full py-16">
             <svg class="w-20 h-20 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

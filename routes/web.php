@@ -13,6 +13,7 @@ use App\Livewire\Public\Category;
 use App\Livewire\Public\Contact;
 use App\Livewire\Public\Home;
 use App\Livewire\Public\PrivacyPolicy;
+use App\Livewire\Public\ProductDetails;
 use App\Livewire\Public\ProductsList;
 use App\Livewire\Public\ReturnPolicy;
 use App\Livewire\Public\ShippingPolicy;
@@ -64,6 +65,7 @@ Route::middleware(['auth', AdminMiddleware::class])
 */
 Route::get('/category', Category::class)->name('category');
 Route::get('/products', ProductsList::class)->name('products');
+Route::get('/products/{product:slug}', ProductDetails::class)->name('product.details');
 
 /*
 |--------------------------------------------------------------------------
