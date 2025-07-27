@@ -17,9 +17,11 @@ class ProductDetails extends Component
     public function mount(Product $product)
     {
         $this->product = $product;
+        $this->product = $product->loadCount('reviews')
+                             ->loadAvg('reviews', 'rating');
     }
 
-      public function getAllProductImages(Product $product): array
+    public function getAllProductImages(Product $product): array
     {
         $images = [];
 
@@ -52,15 +54,19 @@ class ProductDetails extends Component
 
     public function render()
     {
-        $products = Product::query()
-            ->where('is_active', true)
-            ->with(['attributeValues' => fn($q) => $q->with('attribute'), 'images'])
-            ->get();
+        $product = Product::with([
+            'images',
+            'attributeValues.attribute',
+            'reviews' => fn($q) => $q->with('user')->latest()
+        ])
+            ->withCount('reviews')
+            ->withAvg('reviews', 'rating')
+            ->findOrFail($this->product->id);
 
         $attributes = ProductAttribute::with('values')->get();
 
         return view('livewire.public.product-details', [
-            'products'   => $products,
+            'products'   => $product,
             'attributes' => $attributes,
             'images' => $this->getAllProductImages($this->product),
 

@@ -8,6 +8,7 @@ use App\Livewire\Admin\ProductEdit;
 use App\Livewire\Admin\ProductIndex;
 use App\Livewire\Admin\Profile;
 use App\Livewire\Admin\ProductShow;
+use App\Livewire\Admin\Reviews;
 use App\Livewire\Public\About;
 use App\Livewire\Public\Category;
 use App\Livewire\Public\Contact;

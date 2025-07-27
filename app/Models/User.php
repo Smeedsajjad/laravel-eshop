@@ -67,7 +67,13 @@ class User extends Authenticatable
         ];
     }
 
-    function isAdmin() : bool {
+    function isAdmin(): bool
+    {
         return $this->is_admin;
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }

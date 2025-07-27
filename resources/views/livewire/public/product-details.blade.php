@@ -73,6 +73,26 @@
         .swiper-pagination-bullet-active {
             background: rgb(139, 92, 246);
         }
+
+        .tabs-lift>.tab:is(input:checked, label:has(:checked)) {
+            background-color: white;
+            color: rgb(139, 92, 246);
+            border-color: gray;
+            font-weight: 700;
+        }
+
+        .tab:not(:checked, label:has(:checked), :hover, .tab-active, [aria-selected="true"]) {
+            font-weight: 700;
+            color: black
+        }
+
+        @media (hover: hover) {
+            .tab:hover {
+                color: black;
+                font-weight: 700;
+
+            }
+        }
     </style>
     <div class="grid grid-cols-1 md:grid-cols-12 gap-6 max-w-7xl mx-auto p-4">
         <div class="md:col-span-5">
@@ -153,7 +173,7 @@
             <div class="flex items-center gap-4">
                 <div class="flex items-center gap-1 text-sm">
                     <x-heroicon-s-star class="h-5 w-5 text-yellow-400" />
-                    <span>4.7 ({{ $product->reviews_count ?? 0 }} reviews)</span>
+                    <span>{{ number_format($product->reviews_avg_rating ?: 0, 1) }} / 5 ({{ $product->reviews_count }} reviews)</span>
                 </div>
                 <button class="btn btn-ghost btn-sm btn-circle">
                     <x-heroicon-s-share class="h-5 w-5" />
@@ -229,6 +249,17 @@
             </div>
         </div>
 
+    </div>
+
+    <!-- name of each tab group should be unique -->
+    <div class="tabs tabs-lift">
+        <input type="radio" name="my_tabs_3" class="tab" aria-label="Description" />
+        <div class="tab-content p-6 text-black border-t-gray-300 rounded-none z-10">{{ $product->description }}</div>
+
+        <input type="radio" name="my_tabs_3" class="tab" aria-label="Reviews" checked="checked" />
+        <div class="tab-content p-6 text-black border-t-gray-300 rounded-none z-10">
+            <livewire:public.reviews :product="$product" />
+        </div>
     </div>
 
     <script>

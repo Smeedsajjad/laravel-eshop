@@ -218,17 +218,6 @@
                     <p class="text-sm text-gray-500 mb-4 line-clamp-2">
                         {{ Str::limit($product->description, 80) }}
                     </p>
-
-                    @if($product->attributeValues->count() > 0)
-                    <div class="flex flex-wrap gap-1 mb-3">
-                        @foreach($product->attributeValues->take(3) as $attr)
-                        <span class="badge badge-xs badge-outline">{{ $attr->value }}</span>
-                        @endforeach
-                        @if($product->attributeValues->count() > 3)
-                        <span class="badge badge-xs badge-ghost">+{{ $product->attributeValues->count() - 3 }}</span>
-                        @endif
-                    </div>
-                    @endif
                 </div>
             </a>
 
