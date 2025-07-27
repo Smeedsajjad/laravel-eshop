@@ -58,11 +58,11 @@
             @endif
         </ul>
     </div>
-      @if($category && ($category->slug || $category->cat_name))
-            <h1 class="text-black text-3xl font-semibold">{{ $category->cat_name }}</h1>
-            @else
-            <h1 class="text-black text-3xl font-semibold">Product Listing</h1>
-            @endif
+    @if($category && ($category->slug || $category->cat_name))
+    <h1 class="text-black text-3xl font-semibold">{{ $category->cat_name }}</h1>
+    @else
+    <h1 class="text-black text-3xl font-semibold">Product Listing</h1>
+    @endif
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-8 text-black">
         <!-- FILTERS PANEL -->
@@ -207,20 +207,7 @@
             <!-- Clickable area for redirect -->
             <a wire:navigate href="{{ route('product.details', $product->slug) }}" class="block">
                 <figure class="h-48">
-                    @php
-                    $firstImagePath = null;
-                    $decodedImages = json_decode($product->images, true);
-                    if (is_array($decodedImages) && count($decodedImages) > 0) {
-                    $firstImageObject = $decodedImages[0];
-                    if (isset($firstImageObject['image_path'])) {
-                    $imagePathsArray = json_decode($firstImageObject['image_path'], true);
-                    if (is_array($imagePathsArray) && count($imagePathsArray) > 0) {
-                    $firstImagePath = $imagePathsArray[0];
-                    }
-                    }
-                    }
-                    @endphp
-                    <img src="{{ $firstImagePath ? Storage::url($firstImagePath) : asset('images/no-image.webp') }}"
+                    <img src="{{ $product->first_image_path ? Storage::url($product->first_image_path) : asset('images/no-image.webp') }}"
                         alt="{{ $product->name }}"
                         class="w-full h-full object-cover transition-transform group-hover:scale-105" />
                 </figure>

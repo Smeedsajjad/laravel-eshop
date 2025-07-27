@@ -35,18 +35,7 @@
 
                 <!-- Search Input -->
                 <div class="flex-1 w-full px-24">
-                    <label class="input rounded-full border-purple-600 border-2 w-full bg-white">
-                        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <g stroke-linejoin="round" stroke-linecap="round" stroke="#45474c" stroke-width="2.5"
-                                fill="none" stroke="currentColor">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <path d="m21 21-4.3-4.3"></path>
-                            </g>
-                        </svg>
-                        <input type="search" class="grow" placeholder="Search" />
-                        <kbd class="kbd kbd-sm !focus:outline-purple-600 bg-purple-600">⌘</kbd>
-                        <kbd class="kbd kbd-sm bg-purple-600">K</kbd>
-                    </label>
+                    <livewire:public.search-bar />
                 </div>
 
                 <!-- Navigation Links -->
@@ -67,20 +56,9 @@
         </div>
     </div>
 
-    <!-- Mobile Search Bar -->
-    <div class="lg:hidden bg-softPurple">
-        <div class="max-w-7xl mx-auto w-full px-4 py-3">
-            <label class="input rounded-full bg-white w-full">
-                <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <g stroke-linejoin="round" stroke-linecap="round" stroke="#45474c" stroke-width="2.5" fill="none"
-                        stroke="currentColor">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.3-4.3"></path>
-                    </g>
-                </svg>
-                <input type="search" class="grow" placeholder="Search" />
-                <kbd class="kbd kbd-sm bg-purple-600">⌘</kbd>
-                <kbd class="kbd kbd-sm bg-purple-600">K</kbd>
-            </label>
-        </div>
+<!-- Mobile Search Bar -->
+<div class="lg:hidden bg-softPurple sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto w-full px-4 py-3">
+        <livewire:public.search-bar />
     </div>
+</div>
