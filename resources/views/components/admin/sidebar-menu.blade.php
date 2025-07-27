@@ -74,22 +74,18 @@
         </details>
     </li>
 
-    {{-- Brands Link --}}
-    <li>
-        <a class="flex items-center gap-2" href="#">
-            <x-heroicon-s-briefcase class="h-5 w-5" />
-            Brands
+    {{-- Reviews Link --}}
+    <li
+        class="
+               p-2 rounded-md my-2
+               hover:bg-base-300 hover:text-primary
+               {{ request()->routeIs('admin.reviews') ? 'menu-active bg-primary text-white' : '' }}
+               ">
+        <a class="flex items-center gap-2 hover:bg-base-300" wire:navigate href="{{ route('admin.reviews') }}">
+            <x-heroicon-s-star class="h-5 w-5" />
+            Reviews
         </a>
     </li>
-
-    {{-- Sliders Link --}}
-    <li>
-        <a class="flex items-center gap-2" href="#">
-            <x-heroicon-s-photo class="h-5 w-5" />
-            Sliders
-        </a>
-    </li>
-
     {{-- Orders Link --}}
     <li>
         <a class="flex items-center gap-2" href="#">

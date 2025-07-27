@@ -49,6 +49,7 @@ Route::middleware(['auth', AdminMiddleware::class])
         Route::get('/dashboard', Dashboard::class)->name('dashboard');
         Route::get('/profile', Profile::class)->name('profile');
         Route::get('/category', CategoryManagement::class)->name('category');
+        Route::get('/reviews', Reviews::class)->name('reviews');
 
         Route::prefix('products')->name('products.')->group(function () {
             Route::get('/', ProductIndex::class)->name('index');
