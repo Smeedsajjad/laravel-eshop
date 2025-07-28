@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\AdminMiddleware;
+use App\Livewire\Admin\AttributeManagement;
 use App\Livewire\Admin\CategoryManagement;
 use App\Livewire\Admin\Dashboard;
 use App\Livewire\Admin\ProductCreate;
@@ -50,6 +51,7 @@ Route::middleware(['auth', AdminMiddleware::class])
         Route::get('/profile', Profile::class)->name('profile');
         Route::get('/category', CategoryManagement::class)->name('category');
         Route::get('/reviews', Reviews::class)->name('reviews');
+        Route::get('/attributes', AttributeManagement::class)->name('attributes');
 
         Route::prefix('products')->name('products.')->group(function () {
             Route::get('/', ProductIndex::class)->name('index');

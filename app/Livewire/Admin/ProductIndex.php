@@ -32,7 +32,7 @@ class ProductIndex extends Component
 
     // Image gallery modal properties
     public $showImageModal = false;
-    public $currentProduct = null; // Store the entire product object
+    public $currentProduct = null;
     public $currentImages = [];
     public $currentImageIndex = 0;
 
@@ -93,11 +93,15 @@ class ProductIndex extends Component
 
             // Delete associated images
             if ($product->images) {
-                $images = json_decode($product->images, true);
-                if (is_array($images)) {
-                    foreach ($images as $image) {
-                        if (Storage::disk('public')->exists($image)) {
-                            Storage::disk('public')->delete($image);
+                $images = json_decode($product->images, true) ?? [];
+                foreach ($images as $record) {
+                    $paths = is_array($record['image_path'] ?? null)
+                        ? $record['image_path']
+                        : [$record['image_path'] ?? null];
+
+                    foreach ($paths as $path) {
+                        if ($path && Storage::disk('public')->exists($path)) {
+                            Storage::disk('public')->delete($path);
                         }
                     }
                 }

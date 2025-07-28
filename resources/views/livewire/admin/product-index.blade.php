@@ -242,7 +242,6 @@
                                     <td class="font-mono">{{ $product->id }}</td>
 
                                     <!-- Product Image -->
-                                    <!-- Product Image Column in your table -->
                                     <td>
                                         @php
                                             $firstImage = $this->getFirstImage($product->images);
@@ -270,7 +269,7 @@
                                         @endif
                                     </td>
 
-                                    <!-- Image Gallery Modal (place this at the bottom of your view, after the table) -->
+                                    <!-- Image Gallery Modal (place this at the bottom of view) -->
                                     @if ($showImageModal && $currentProduct)
                                         <div class="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4"
                                             wire:click="closeImageGallery" x-data="{
@@ -448,14 +447,14 @@
                                             <ul tabindex="0"
                                                 class="dropdown-content menu bg-base-100 rounded-box z-20 w-52 p-2 shadow-lg border border-base-content/10">
                                                 <li>
-                                                    <a href="{{ route('admin.products.show', $product) }}"
+                                                    <a wire:navigate href="{{ route('admin.products.show', $product) }}"
                                                         class="cursor-pointer">
                                                         <x-heroicon-o-eye class="size-4" />
                                                         View Details
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="{{ route('admin.products.edit', $product) }}"
+                                                    <a wire:navigate href="{{ route('admin.products.edit', $product) }}"
                                                         class="cursor-pointer">
                                                         <x-heroicon-o-pencil-square class="size-4" />
                                                         Edit

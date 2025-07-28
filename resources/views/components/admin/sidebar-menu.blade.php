@@ -86,6 +86,18 @@
             Reviews
         </a>
     </li>
+    {{-- Attributes Link --}}
+    <li
+        class="
+               p-2 rounded-md my-2
+               hover:bg-base-300 hover:text-primary
+               {{ request()->routeIs('admin.reviews') ? 'menu-active bg-primary text-white' : '' }}
+               ">
+        <a class="flex items-center gap-2 hover:bg-base-300" wire:navigate href="{{ route('admin.attributes') }}">
+            <x-heroicon-s-inbox-stack class="h-5 w-5" />
+            Attributes
+        </a>
+    </li>
     {{-- Orders Link --}}
     <li>
         <a class="flex items-center gap-2" href="#">
@@ -93,4 +105,5 @@
             Orders
         </a>
     </li>
+
 </ul>
