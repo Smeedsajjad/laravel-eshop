@@ -78,6 +78,8 @@ Route::get('/products/{product:slug}', ProductDetails::class)->name('product.det
 |--------------------------------------------------------------------------
 */
 Route::get('/cart', Cart::class)->name('cart');
+Route::get('/checkout', Cart::class)->name('checkout');
+Route::get('/order/complete', Cart::class)->name('order.complete');
 /*
 |--------------------------------------------------------------------------
 | User Area (auth protected)

@@ -7,29 +7,14 @@
             background-color: oklch(58% 0.233 277.117)
         }
     </style>
-    <nav class="flex flex-col sm:flex-row justify-around items-center
-            text-white bg-purple-700 p-6 sm:p-8 md:p-12 lg:p-16 rounded-xl gap-4 sm:gap-2">
-        <div class="flex items-center gap-2">
-            <span class="hidden sm:inline text-purple-300">1.</span>
-            <h3 class="text-xl sm:text-2xl font-semibold underline underline-offset-8">Shopping&nbsp;Cart</h3>
-        </div>
-        <x-heroicon-s-arrow-long-right class="hidden sm:inline size-4" />
-        <div class="flex items-center gap-2">
-            <span class="hidden sm:inline text-purple-300">2.</span>
-            <h3 class="text-xl sm:text-2xl font-semibold underline underline-offset-8">Checkout</h3>
-        </div>
-        <x-heroicon-s-arrow-long-right class="hidden sm:inline size-4" />
-        <div class="flex items-center gap-2">
-            <span class="hidden sm:inline text-purple-300">3.</span>
-            <h3 class="text-xl sm:text-2xl font-semibold underline underline-offset-8">Order&nbsp;Complete</h3>
-        </div>
-    </nav>
 
-    <!-- parent -->
+    <livewire:public.cart-hero-section />
+
     <div class="flex flex-col md:flex-row gap-6 lg:gap-8 w-full my-8 px-4 sm:px-6 lg:px-8">
 
-        <!-- 75 % -->
         <div class="w-full md:w-3/4">
+            @if(Auth::check())
+
             <div class="overflow-x-auto rounded-xl shadow-xl border border-gray-200">
                 <table class="min-w-full bg-white divide-y divide-gray-200">
                     <thead class="bg-gray-50">
@@ -107,8 +92,15 @@
                     </tbody>
                 </table>
             </div>
+            @else
+            <p class="text-lg text-gray-600 text-center">You Need to Login First.</p>
+            <a wire:navigate href="{{ route('login') }}"
+                class="btn bg-purple-600 hover:bg-purple-700 text-white border-0 w-full">
+                Login to Add
+            </a>
+            @endif
         </div>
-        <!-- 25 % -->
+
         <div class="w-full text-black md:w-2/5">
             <div class="bg-white rounded-xl shadow-xl p-6 space-y-4 border border-gray-100">
                 <h3 class="text-xl font-bold text-gray-800 border-b pb-2">Cart Totals</h3>

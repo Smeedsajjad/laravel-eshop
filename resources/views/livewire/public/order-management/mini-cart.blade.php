@@ -18,6 +18,8 @@
 
     {{-- Items --}}
     <ul class="space-y-4 flex-1 overflow-y-auto h-[calc(100vh-220px)]">
+
+        @if(Auth::check())
         @forelse($items as $item)
         @if($item->product)
         <li class="flex flex-row justify-between bg-transparent" wire:key="cart-item-{{ $item->product_id }}">
@@ -47,7 +49,8 @@
                         +
                     </button>
                 </div>
-                <button wire:click="remove({{ $item->product_id }})" class="btn btn-sm bg-transparent hover:bg-transparent border-0 shadow-none text-red-500">
+                <button wire:click="remove({{ $item->product_id }})"
+                    class="btn btn-sm bg-transparent hover:bg-transparent border-0 shadow-none text-red-500">
                     <x-heroicon-o-trash class="size-6" />
                 </button>
             </div>
@@ -58,6 +61,14 @@
             Your cart is empty
         </li>
         @endforelse
+        @else
+        <p class="text-lg text-gray-600 text-center">You Need to Login First.</p>
+        <a wire:navigate href="{{ route('login') }}" class="btn bg-purple-600 hover:bg-purple-700 text-white border-0 w-full">
+            Login to Add
+        </a>
+        @endif
+
+
     </ul>
 
     {{-- Footer --}}

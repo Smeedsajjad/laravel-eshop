@@ -12,7 +12,7 @@ class DatabaseCart
 
     public function __construct()
     {
-        $this->userId = Auth::id() ?? abort(401, 'Please log in');
+        $this->userId = Auth::id();
     }
 
     public function add(Product $product, int $qty = 1): void
