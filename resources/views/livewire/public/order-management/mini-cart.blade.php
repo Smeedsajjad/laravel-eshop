@@ -70,7 +70,7 @@
         </div>
 
         <div class="grid grid-cols-1 gap-2">
-            <a href="{{ route('home') }}" class="btn bg-softPurple text-purple-700 border-0 w-full">
+            <a href="{{ route('cart') }}" class="btn bg-softPurple text-purple-700 border-0 w-full">
                 View Cart
             </a>
             <button class="btn bg-purple-600 hover:bg-purple-700 text-white border-0 w-full">

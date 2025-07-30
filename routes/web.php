@@ -14,6 +14,7 @@ use App\Livewire\Public\About;
 use App\Livewire\Public\Category;
 use App\Livewire\Public\Contact;
 use App\Livewire\Public\Home;
+use App\Livewire\Public\OrderManagement\Cart;
 use App\Livewire\Public\PrivacyPolicy;
 use App\Livewire\Public\ProductDetails;
 use App\Livewire\Public\ProductsList;
@@ -71,7 +72,12 @@ Route::get('/category', Category::class)->name('category');
 Route::get('/category/{slug}', ProductsList::class)->name('category.products');
 Route::get('/products', ProductsList::class)->name('products');
 Route::get('/products/{product:slug}', ProductDetails::class)->name('product.details');
-
+/*
+|--------------------------------------------------------------------------
+| Shopping Cart
+|--------------------------------------------------------------------------
+*/
+Route::get('/cart', Cart::class)->name('cart');
 /*
 |--------------------------------------------------------------------------
 | User Area (auth protected)
