@@ -223,8 +223,9 @@
 
             <!-- Add to Cart Button -->
             <div class="card-actions px-4 pb-4">
-                <button wire:click.stop="{{ $product->id }}"
-                    class="subscribe-btn btn bg-purple-600 hover:bg-purple-700 text-white btn-block h-8 border-0 flex items-center justify-center z-10">
+                <button wire:click="$dispatch('add-to-cart', { id: {{ $product->id }} })" class="subscribe-btn btn
+                    bg-purple-600 hover:bg-purple-700 text-white btn-block h-8 border-0 flex items-center justify-center
+                    z-10">
                     <span class="subscribe-text">Add in Cart</span>
                     <svg class="cart-icon h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

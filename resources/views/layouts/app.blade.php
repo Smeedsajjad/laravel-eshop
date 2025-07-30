@@ -46,14 +46,28 @@
             {{-- Navbar --}}
             @include('components.public.top-navbar')
             @include('components.public.main-navbar')
+            <!--  Mini-Cart drawer -->
+            <div class="drawer drawer-end">
+                <input id="mini-cart-toggle" type="checkbox" class="drawer-toggle" wire:model="drawerOpen" />
+                <div class="drawer-content">
+                    <!-- rest of your page / navbar -->
+                </div>
+
+                <div class="drawer-side z-20">
+                    <label for="mini-cart-toggle" aria-label="close sidebar" class="drawer-overlay"></label>
+                    <ul class="menu bg-white text-base-content min-h-full w-80 p-4">
+                        <livewire:public.order-management.mini-cart />
+                    </ul>
+                </div>
+            </div>
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
+            <header class="bg-white shadow">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    {{ $header }}
+                </div>
+            </header>
             @endif
 
             <!-- Page Content -->
@@ -70,7 +84,8 @@
     </div>
 
     @stack('modals')
-    @livewireScripts <!-- Swiper JS -->
+    @livewireScripts
+    <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         var swiper = new Swiper(".mySwiper", {

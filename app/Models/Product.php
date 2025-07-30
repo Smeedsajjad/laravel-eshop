@@ -114,4 +114,8 @@ class Product extends Model
         return $this->reviews()->avg('rating') ?: 0;
     }
 
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
 }
