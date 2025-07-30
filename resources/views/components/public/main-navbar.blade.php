@@ -55,9 +55,9 @@
                   <div class="indicator">
                     <livewire:wishlist-badge />
                     <li class="bg-white p-3.5 rounded-full">
-                        <label for="mini-cart-toggle" class="cursor-pointer">
+                        <a href="{{ route('wishlist') }}" wire:navigate class="cursor-pointer">
                             <x-heroicon-o-heart class="size-5 text-purple-600" />
-                        </label>
+                        </a>
                     </li>
                 </div>
 

@@ -7,9 +7,13 @@ use App\Models\Product;
 use App\Services\DatabaseCart;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use Livewire\WithoutUrlPagination;
+use Livewire\WithPagination;
 
 class Cart extends Component
 {
+    use WithPagination, WithoutUrlPagination;
+
     #[Layout('layouts.app')]
 
     public $items = [];
@@ -125,6 +129,15 @@ class Cart extends Component
 
     public function render()
     {
-        return view('livewire.public.order-management.cart');
+        $rows = \App\Models\Cart::with('product')
+            ->where('user_id', Auth::id())
+            ->paginate(6);
+
+        $this->total = $rows->sum(fn($row) => $row->quantity * $row->product->price);
+        $this->count = $rows->sum('quantity');
+
+        $this->calculateCheckedTotal($rows);
+
+        return view('livewire.public.order-management.cart', ['rows' => $rows]);
     }
 }

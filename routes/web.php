@@ -21,6 +21,7 @@ use App\Livewire\Public\ProductsList;
 use App\Livewire\Public\ReturnPolicy;
 use App\Livewire\Public\ShippingPolicy;
 use App\Livewire\Public\TermsCondition;
+use App\Livewire\Public\Wishlist;
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -74,12 +75,13 @@ Route::get('/products', ProductsList::class)->name('products');
 Route::get('/products/{product:slug}', ProductDetails::class)->name('product.details');
 /*
 |--------------------------------------------------------------------------
-| Shopping Cart
+| Shopping Cart & Wishlist
 |--------------------------------------------------------------------------
 */
 Route::get('/cart', Cart::class)->name('cart');
 Route::get('/checkout', Cart::class)->name('checkout');
 Route::get('/order/complete', Cart::class)->name('order.complete');
+Route::get('/wishlist', Wishlist::class)->name('wishlist');
 /*
 |--------------------------------------------------------------------------
 | User Area (auth protected)

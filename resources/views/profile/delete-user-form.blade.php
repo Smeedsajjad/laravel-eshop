@@ -1,3 +1,6 @@
+@if (Auth::user()->is_admin)
+    <div></div>
+@else
 <x-action-section>
     <x-slot name="title">
         {{ __('Delete Account') }}
@@ -51,3 +54,5 @@
         </x-dialog-modal>
     </x-slot>
 </x-action-section>
+
+@endif
