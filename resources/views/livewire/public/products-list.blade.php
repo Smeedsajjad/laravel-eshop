@@ -200,8 +200,7 @@
 
             <!-- Heart icon for wishlist -->
             <div class="absolute top-3 left-3 z-10">
-                <x-heroicon-o-heart wire:click.stop="{{ $product->id }}"
-                    class="size-8 heart-icon rounded-full p-1.5 bg-white/80 backdrop-blur cursor-pointer hover:bg-white transition-colors" />
+                <livewire:public.wishlist-toggle :productId="$product->id" />
             </div>
 
             <!-- Clickable area for redirect -->

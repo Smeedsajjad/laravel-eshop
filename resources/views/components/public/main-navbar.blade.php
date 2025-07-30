@@ -51,11 +51,15 @@
                         </label>
                     </li>
                 </div>
-                <li class="bg-white p-3.5 rounded-full">
-                    <a href="#">
-                        <x-heroicon-o-heart class="size-5 text-purple-600" />
-                    </a>
-                </li>
+
+                  <div class="indicator">
+                    <livewire:wishlist-badge />
+                    <li class="bg-white p-3.5 rounded-full">
+                        <label for="mini-cart-toggle" class="cursor-pointer">
+                            <x-heroicon-o-heart class="size-5 text-purple-600" />
+                        </label>
+                    </li>
+                </div>
 
                 <li class="content-center">
                     <div class="dropdown dropdown-end">
