@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class DatabaseWishlist
 {
-    protected int $userId;
+    protected ?int $userId;
     public function __construct()
     {
-        $this->userId = Auth::id() ?? abort(401, 'Please log in');
+        $this->userId = Auth::id();
     }
 
     public function toggle(Product $product): void

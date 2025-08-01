@@ -21,7 +21,7 @@
             <div class="bg-white rounded-xl shadow-xl p-6 space-y-4">
                 <h2 class="text-lg font-bold text-gray-800 border-b pb-2">Menu</h2>
 
-                @if(Auth::user()->is_admin)
+                @if(Auth::check() && Auth::user()->is_admin)
                 <a href="{{ route('admin.profile') }}" wire:navigate
                     class="text-black block px-3 py-2 rounded-md text-sm hover:bg-purple-100">Profile</a>
                 <a href="{{ route('admin.dashboard') }}" wire:navigate

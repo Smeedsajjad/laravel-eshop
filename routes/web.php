@@ -10,6 +10,7 @@ use App\Livewire\Admin\ProductIndex;
 use App\Livewire\Admin\Profile;
 use App\Livewire\Admin\ProductShow;
 use App\Livewire\Admin\Reviews;
+use App\Livewire\CheckoutPage;
 use App\Livewire\Public\About;
 use App\Livewire\Public\Category;
 use App\Livewire\Public\Contact;
@@ -82,6 +83,17 @@ Route::get('/cart', Cart::class)->name('cart');
 Route::get('/checkout', Cart::class)->name('checkout');
 Route::get('/order/complete', Cart::class)->name('order.complete');
 Route::get('/wishlist', Wishlist::class)->name('wishlist');
+/*
+|--------------------------------------------------------------------------
+| Strip Checkout
+|--------------------------------------------------------------------------
+*/
+// routes/web.php
+Route::middleware('auth')->group(function () {
+    Route::get('/checkout', CheckoutPage::class)->name('checkout');
+    Route::view('/checkout/success', 'checkout.success')->name('checkout.success');
+    Route::view('/checkout/cancel',  'checkout.cancel')->name('checkout.cancel');
+});
 /*
 |--------------------------------------------------------------------------
 | User Area (auth protected)

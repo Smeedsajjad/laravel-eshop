@@ -21,6 +21,8 @@ class Cart extends Component
     public $count = 0;
     public array $selected = [];
     public float $checkedTotal = 0;
+    public $cartTotal;
+
 
     protected $listeners = [
         'add-to-cart' => 'addToCart',
@@ -36,7 +38,35 @@ class Cart extends Component
             $this->total = 0;
             $this->count = 0;
         }
+        $this->cartTotal = app(DatabaseCart::class)->total();
     }
+
+    public function pay()
+    {
+        // Build line items from cart
+        $items = app(DatabaseCart::class)
+            ->content()
+            ->map(fn($row) => [
+                'price_data' => [
+                    'currency'     => 'usd',
+                    'product_data' => [
+                        'name' => $row->product->name,
+                    ],
+                    'unit_amount'  => $row->product->price * 100,
+                ],
+                'quantity' => $row->quantity,
+            ]);
+
+        return auth()->user()->checkout(
+            $items->toArray(),
+            [
+                'success_url' => route('checkout.success') . '?session_id={CHECKOUT_SESSION_ID}',
+                'cancel_url'  => route('checkout.cancel'),
+                'mode'        => 'payment',
+            ]
+        );
+    }
+
 
     public function addToCart($id)
     {
