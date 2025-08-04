@@ -19,6 +19,10 @@
             <x-heroicon-o-building-storefront class="size-6 text-gray-800" />Products</a>
     </li>
     <li>
+        <a href="{{ route('address') }}" wire:navigate class="!text-gray-800 p-3 !bg-transparent">
+            <x-heroicon-o-map-pin class="size-6 text-gray-800" />Address</a>
+    </li>
+    <li>
         <a href="{{ route('about') }}" wire:navigate class="!text-gray-800 p-3 !bg-transparent">
             <x-heroicon-o-information-circle class="size-6 text-gray-800" />About Us</a>
     </li>

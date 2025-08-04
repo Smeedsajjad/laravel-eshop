@@ -57,7 +57,7 @@
     </div>
 
 <!-- Mobile Search Bar -->
-<div class="lg:hidden bg-softPurple sticky top-0 z-30">
+<div class="lg:hidden bg-softPurple sticky top-0" >
     <div class="max-w-7xl mx-auto w-full px-4 py-3">
         <livewire:public.search-bar />
     </div>

@@ -11,22 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-         Schema::create('addresses', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('label')->nullable();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('company')->nullable();
             $table->string('phone', 25)->nullable();
             $table->string('address_line_1');
             $table->string('address_line_2')->nullable();
             $table->string('city');
             $table->string('state')->nullable();
             $table->string('postal_code', 15);
-            $table->string('country', 2)->default('US');    // ISO-3166-1 alpha-2
+            $table->string('country', 2)->default('US');
             $table->boolean('is_default')->default(false);
             $table->timestamps();
+
+            $table->index(['user_id', 'is_default']);
+            $table->index(['user_id', 'created_at']);
         });
     }
 

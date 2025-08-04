@@ -16,6 +16,7 @@ use App\Livewire\Public\Category;
 use App\Livewire\Public\Contact;
 use App\Livewire\Public\Home;
 use App\Livewire\Public\OrderManagement\Cart;
+use App\Livewire\Public\OrderManagement\CheckoutAddress;
 use App\Livewire\Public\PrivacyPolicy;
 use App\Livewire\Public\ProductDetails;
 use App\Livewire\Public\ProductsList;
@@ -83,6 +84,7 @@ Route::get('/cart', Cart::class)->name('cart');
 Route::get('/checkout', Cart::class)->name('checkout');
 Route::get('/order/complete', Cart::class)->name('order.complete');
 Route::get('/wishlist', Wishlist::class)->name('wishlist');
+Route::get('/address', CheckoutAddress::class)->name('address');
 /*
 |--------------------------------------------------------------------------
 | Strip Checkout

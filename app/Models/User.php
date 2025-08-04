@@ -87,10 +87,10 @@ class User extends Authenticatable
 
     public function addresses(): HasMany
     {
-        return $this->hasMany(Address::class);
+        return $this->hasMany(Address::class)->orderBy('is_default', 'desc')->orderBy('created_at', 'desc');
     }
 
-    public function defaultAddress(): HasOne
+    public function defaultAddress()
     {
         return $this->hasOne(Address::class)->where('is_default', true);
     }
