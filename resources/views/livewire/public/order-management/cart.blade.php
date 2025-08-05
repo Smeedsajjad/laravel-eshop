@@ -137,17 +137,17 @@
                     </span>
                 </div>
 
-                <button wire:click="pay" wire:loading.attr="disabled"
+                <a wire:navigate href="{{ route('checkout') }}" wire:loading.attr="disabled"
                     class="btn bg-gradient-to-r from-purple-600 to-purple-700 text-white font-semibold w-full py-3 rounded-lg hover:from-purple-700 hover:to-purple-800 border-0 {{ empty($selected) ? 'btn-disabled opacity-50 cursor-not-allowed' : '' }}"
                     @if (empty($selected)) disabled tabindex="-1" aria-disabled="true" @endif>
                     <span wire:loading wire:target="pay" class="flex items-center justify-center gap-2">
                         <span class="loading loading-spinner"></span>
                         Processing...
                     </span>
-                    <span wire:loading.remove wire:target="pay">
+                    <span>
                         Proceed to Checkout
                     </span>
-                </button>
+                </a>
 
 
             </div>

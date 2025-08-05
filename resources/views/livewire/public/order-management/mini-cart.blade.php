@@ -84,9 +84,9 @@
             <a href="{{ route('cart') }}" class="btn bg-softPurple text-purple-700 border-0 w-full">
                 View Cart
             </a>
-            <button class="btn bg-purple-600 hover:bg-purple-700 text-white border-0 w-full">
+            {{-- <button class="btn bg-purple-600 hover:bg-purple-700 text-white border-0 w-full">
                 Checkout
-            </button>
+            </button> --}}
         </div>
     </div>
 </div>

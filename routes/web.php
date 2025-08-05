@@ -17,6 +17,7 @@ use App\Livewire\Public\Contact;
 use App\Livewire\Public\Home;
 use App\Livewire\Public\OrderManagement\Cart;
 use App\Livewire\Public\OrderManagement\CheckoutAddress;
+use App\Livewire\Public\OrderManagement\CheckoutPage as OrderManagementCheckoutPage;
 use App\Livewire\Public\PrivacyPolicy;
 use App\Livewire\Public\ProductDetails;
 use App\Livewire\Public\ProductsList;
@@ -92,48 +93,8 @@ Route::get('/address', CheckoutAddress::class)->name('address');
 */
 // routes/web.php
 Route::middleware('auth')->group(function () {
-    Route::get('/checkout', CheckoutPage::class)->name('checkout');
+    Route::get('/checkout', OrderManagementCheckoutPage::class)->name('checkout');
     Route::view('/checkout/success', 'checkout.success')->name('checkout.success');
     Route::view('/checkout/cancel',  'checkout.cancel')->name('checkout.cancel');
 });
-/*
-|--------------------------------------------------------------------------
-| User Area (auth protected)
-|--------------------------------------------------------------------------
-*/
-// Route::middleware(['auth', config('jetstream.auth_session')])
-//      ->name('user.')
-//      ->group(function () {
 
-//     // Dashboard / Account Home
-//     Route::get('/account', \App\Http\Livewire\User\Dashboard::class)
-//          ->name('dashboard');
-
-//     // Profile settings
-//     Route::get('/account/profile', \App\Http\Livewire\User\Profile::class)
-//          ->name('profile');
-
-//     // Order history & tracking
-//     Route::get('/account/orders',
-//                \App\Http\Livewire\User\OrderHistory::class)
-//          ->name('orders.history');
-//     Route::get('/account/orders/{order}',
-//                \App\Http\Livewire\User\OrderDetail::class)
-//          ->name('orders.detail');
-
-//     // Wishlist
-//     Route::get('/account/wishlist',
-//                \App\Http\Livewire\User\Wishlist::class)
-//          ->name('wishlist');
-
-//     // Cart & Checkout (you may or may not require auth for cart)
-//     Route::get('/cart', \App\Http\Livewire\User\Cart::class)
-//          ->name('cart');
-//     Route::get('/checkout', \App\Http\Livewire\User\Checkout::class)
-//          ->name('checkout');
-//     Route::get('/order-confirmation/{order}',
-//                \App\Http\Livewire\User\OrderConfirmation::class)
-//          ->name('order.confirmation');
-
-    // Any additional protected pages…
-// });
