@@ -95,6 +95,8 @@
                                     __('Profile') }}</a></li>
                             <li><a class="text-gray-600 focus:bg-white" wire:navigate href="{{ route('address') }}">{{
                                     __('Address') }}</a></li>
+                            <li><a class="text-gray-600 focus:bg-white" wire:navigate href="{{ route('orders') }}">{{
+                                    __('Orders') }}</a></li>
                             @endif
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -9,7 +10,9 @@ use Illuminate\Support\Str;
 
 class Orders extends Model
 {
-        protected $fillable = [
+    use HasUlids;
+
+    protected $fillable = [
         'user_id',
         'address_id',
         'order_number',
@@ -40,15 +43,9 @@ class Orders extends Model
 
     public function items(): HasMany
     {
-        return $this->hasMany(OrderItems::class);
+        return $this->hasMany(OrderItems::class, 'order_id');
     }
 
-    public function payment(): BelongsTo
-    {
-        return $this->belongsTo(Payments::class);
-    }
-
-    /* Helper to generate a friendly order number */
     public static function generateNumber(): string
     {
         return 'ORD-' . now()->format('YmdHis') . strtoupper(Str::random(4));

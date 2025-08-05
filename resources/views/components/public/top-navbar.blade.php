@@ -1,5 +1,12 @@
     <!-- Navbar -->
     <div class="navbar bg-white w-full">
+        <style>
+            @media (max-width: 1023px) {
+                label.btn.btn-circle.btn-lg.border-0.shadow-none.avatar.text-black.bg-white {
+                    background-color: #dfd6f1 !important;
+                }
+            }
+        </style>
         <div class="max-w-7xl mx-auto w-full px-8">
             <!-- Mobile Layout (< lg) -->
             <div class="flex lg:hidden flex-row w-full items-center justify-between">
@@ -20,9 +27,22 @@
                     </a>
                 </div>
 
-                <div class="flex flex-row gap-3">
-                    <x-heroicon-o-shopping-cart class="size-5 text-gray-600" />
-                    <x-heroicon-o-user class="size-5 text-gray-600" />
+                <div>
+                    <ul class="flex justify-center lg:justify-end items-center gap-3">
+                        {{-- Cart --}}
+                        <li>
+                            <div class="indicator">
+                                <livewire:cart-badge />
+                                <button type="button" class="bg-white p-3.5 rounded-full cursor-pointer"
+                                    for="mini-cart-toggle">
+                                    <x-heroicon-o-shopping-bag class="size-5 text-purple-600" />
+                                </button>
+                            </div>
+                        </li>
+                        <li>
+                            <x-account-dropdown />
+                        </li>
+                    </ul>
                 </div>
             </div>
 
@@ -41,13 +61,16 @@
                 <!-- Navigation Links -->
                 <div class="flex-none">
                     <div class="flex text-gray-950 flex-row gap-6 items-center">
-                        <a href="{{ route('contact') }}" class="font-semibold hover:text-purple-600 transition-colors" wire:navigate>
+                        <a href="{{ route('contact') }}" class="font-semibold hover:text-purple-600 transition-colors"
+                            wire:navigate>
                             Support
                         </a>
-                        <a href="{{ route('contact') }}" class="font-semibold hover:text-purple-600 transition-colors" wire:navigate>
+                        <a href="{{ route('contact') }}" class="font-semibold hover:text-purple-600 transition-colors"
+                            wire:navigate>
                             About Us
                         </a>
-                        <a href="{{ route('contact') }}" class="font-semibold hover:text-purple-600 transition-colors" wire:navigate>
+                        <a href="{{ route('contact') }}" class="font-semibold hover:text-purple-600 transition-colors"
+                            wire:navigate>
                             FAQs
                         </a>
                     </div>
@@ -56,9 +79,9 @@
         </div>
     </div>
 
-<!-- Mobile Search Bar -->
-<div class="lg:hidden bg-softPurple sticky top-0" >
-    <div class="max-w-7xl mx-auto w-full px-4 py-3">
-        <livewire:public.search-bar />
+    <!-- Mobile Search Bar -->
+    <div class="lg:hidden bg-softPurple sticky top-0">
+        <div class="max-w-7xl mx-auto w-full px-4 py-3">
+            <livewire:public.search-bar />
+        </div>
     </div>
-</div>

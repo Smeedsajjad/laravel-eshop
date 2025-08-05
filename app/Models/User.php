@@ -94,4 +94,15 @@ class User extends Authenticatable
     {
         return $this->hasOne(Address::class)->where('is_default', true);
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Orders::class);
+    }
+    public function createStripeCustomerIfMissing()
+{
+    if (! $this->hasStripeId()) {
+        $this->createAsStripeCustomer();
+    }
+}
 }

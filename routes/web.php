@@ -18,6 +18,8 @@ use App\Livewire\Public\Home;
 use App\Livewire\Public\OrderManagement\Cart;
 use App\Livewire\Public\OrderManagement\CheckoutAddress;
 use App\Livewire\Public\OrderManagement\CheckoutPage as OrderManagementCheckoutPage;
+use App\Livewire\Public\OrderManagement\OrdersDetail;
+use App\Livewire\Public\OrderManagement\OrdersPage;
 use App\Livewire\Public\PrivacyPolicy;
 use App\Livewire\Public\ProductDetails;
 use App\Livewire\Public\ProductsList;
@@ -25,6 +27,7 @@ use App\Livewire\Public\ReturnPolicy;
 use App\Livewire\Public\ShippingPolicy;
 use App\Livewire\Public\TermsCondition;
 use App\Livewire\Public\Wishlist;
+use App\Models\Orders;
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -91,10 +94,10 @@ Route::get('/address', CheckoutAddress::class)->name('address');
 | Strip Checkout
 |--------------------------------------------------------------------------
 */
-// routes/web.php
 Route::middleware('auth')->group(function () {
     Route::get('/checkout', OrderManagementCheckoutPage::class)->name('checkout');
     Route::view('/checkout/success', 'checkout.success')->name('checkout.success');
     Route::view('/checkout/cancel',  'checkout.cancel')->name('checkout.cancel');
+    Route::get('/orders', OrdersPage::class)->name('orders');
+    Route::get('/orders/{order}', OrdersDetail::class)->name('orders.show');
 });
-

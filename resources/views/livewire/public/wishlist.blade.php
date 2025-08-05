@@ -17,7 +17,7 @@
         }
     </style>
     <div class="flex flex-col lg:flex-row gap-8 w-full p-4 md:p-6">
-        <aside class="w-full lg:w-1/4">
+        <aside class="w-full md:flex hidden lg:w-1/4">
             <div class="bg-white rounded-xl shadow-xl p-6 space-y-4">
                 <h2 class="text-lg font-bold text-gray-800 border-b pb-2">Menu</h2>
 
