@@ -65,6 +65,7 @@
                         <th class="font-semibold">Status</th>
                         <th class="font-semibold">Items</th>
                         <th class="font-semibold">Total</th>
+                        <th class="font-semibold">Cancel</th>
                         <th class="font-semibold">Action</th>
                     </tr>
                 </thead>
@@ -85,7 +86,22 @@
                             </td>
                             <td class="font-semibold">${{ number_format($order->total, 2) }}</td>
                             <td>
-                                <a wire:navigate href="{{ route('orders.show', $order) }}"
+                                @if ($order->status === 'pending')
+                                    <button wire:click="cancelOrder('{{ $order->id }}')"
+                                        wire:loading.attr="disabled"
+                                        onclick="return confirm('Are you sure you want to cancel this order?')"
+                                        class="btn btn-xs btn-error ml-2">
+                                        <svg class="w-3 h-3 inline mr-1" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                        Cancel
+                                    </button>
+                                @endif
+                            </td>
+                            <td>
+                                <a wire:navigate href="{{ route('orders.show', $order->id) }}"
                                     class="text-purple-600 underline underline-offset-4 hover:text-purple-700 transition-colors duration-200">
                                     View Details
                                 </a>

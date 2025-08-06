@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\PreventAdminOrders;
 use App\Livewire\Admin\AttributeManagement;
 use App\Livewire\Admin\CategoryManagement;
 use App\Livewire\Admin\Dashboard;
@@ -94,7 +95,7 @@ Route::get('/address', CheckoutAddress::class)->name('address');
 | Strip Checkout
 |--------------------------------------------------------------------------
 */
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', PreventAdminOrders::class)->group(function () {
     Route::get('/checkout', OrderManagementCheckoutPage::class)->name('checkout');
     Route::view('/checkout/success', 'checkout.success')->name('checkout.success');
     Route::view('/checkout/cancel',  'checkout.cancel')->name('checkout.cancel');

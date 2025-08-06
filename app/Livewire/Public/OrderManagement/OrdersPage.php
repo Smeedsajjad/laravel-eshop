@@ -90,6 +90,30 @@ class OrdersPage extends Component
         };
     }
 
+    public function cancelOrder($orderId)
+    {
+        $order = Auth::user()->orders()->where('id', $orderId)->firstOrFail();
+
+        if ($order->status !== 'pending') {
+            $this->dispatch('toast', type: 'error', message: 'Order can no longer be cancelled.');
+            return;
+        }
+
+        if ($order->payment_intent_id) {
+            try {
+                $order->user->refund($order->payment_intent_id);
+            } catch (\Throwable $e) {
+                $this->dispatch('toast', type: 'error', message: 'Refund failed: ' . $e->getMessage());
+                return;
+            }
+        }
+
+        $order->update(['status' => 'cancelled']);
+        $this->calculateStatusCounts();
+
+        $this->dispatch('toast', type: 'success', message: 'Order cancelled & refunded successfully.');
+    }
+
     public function render()
     {
         if (!Auth::check()) {

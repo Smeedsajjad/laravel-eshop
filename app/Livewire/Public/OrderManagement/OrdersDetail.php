@@ -60,8 +60,8 @@ class OrdersDetail extends Component
             'payment_method_types' => ['card'],
             'line_items'           => $lineItems,
             'mode'                 => 'payment',
-            'success_url'          => route('orders.show', $this->order) . '?session_id={CHECKOUT_SESSION_ID}',
-            'cancel_url'           => route('orders.show', $this->order),
+            'success_url'          => route('orders.show', $this->order->id) . '?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url'           => route('orders.show', $this->order->id),
             'metadata'             => ['order_id' => $this->order->id],
         ]);
 

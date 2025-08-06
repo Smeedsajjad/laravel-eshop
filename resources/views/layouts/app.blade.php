@@ -63,11 +63,11 @@
 
             <!-- Page Heading -->
             @if (isset($header))
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
+                <header class="bg-white shadow">
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        {{ $header }}
+                    </div>
+                </header>
             @endif
 
             <!-- Page Content -->
@@ -100,6 +100,22 @@
             },
             simulateTouch: true,
             grabCursor: true,
+        });
+    </script>
+    <script>
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('toast', (e) => {
+                const {
+                    type,
+                    message
+                } = e;
+                // DaisyUI toast
+                const toast = document.createElement('div');
+                toast.className = `alert alert-${type} fixed top-4 right-4 z-50`;
+                toast.innerHTML = `<span>${message}</span>`;
+                document.body.appendChild(toast);
+                setTimeout(() => toast.remove(), 3000);
+            });
         });
     </script>
 </body>

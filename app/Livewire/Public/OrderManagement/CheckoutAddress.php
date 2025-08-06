@@ -4,6 +4,7 @@ namespace App\Livewire\Public\OrderManagement;
 
 use App\Models\Address;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -180,6 +181,9 @@ class CheckoutAddress extends Component
 
     public function save()
     {
+        if (! Gate::allows('place-order', auth()->user())) {
+            abort(403, 'Admins cannot place orders.');
+        }
         if ($this->isGuest) {
             session()->flash('error', 'Please login first to save addresses.');
             return redirect()->route('login');

@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class Orders extends Model
 {
-    use HasUlids;
+    // use HasUlids;
 
     protected $fillable = [
         'user_id',
