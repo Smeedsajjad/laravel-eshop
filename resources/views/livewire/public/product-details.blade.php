@@ -195,7 +195,7 @@
                         class="input border-2 border-purple-600 bg-white w-20 text-center">
                 </label>
                 <button class="btn bg-purple-600 font-semibold border-0">Add to Cart</button>
-                <button class="btn btn-success">Buy it Now</button>
+                {{-- <button class="btn btn-success">Buy it Now</button> --}}
             </div>
 
             {{-- Warranty / policy icons --}}

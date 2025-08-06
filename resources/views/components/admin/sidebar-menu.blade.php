@@ -99,8 +99,13 @@
         </a>
     </li>
     {{-- Orders Link --}}
-    <li>
-        <a class="flex items-center gap-2" href="#">
+    <li
+        class="
+               p-2 rounded-md my-2
+               hover:bg-base-300 hover:text-primary
+               {{ request()->routeIs('admin.orders.index') ? 'menu-active bg-primary text-white' : '' }}
+               ">
+        <a class="flex items-center gap-2 hover:bg-base-300" wire:navigate href="{{ route('admin.orders.index') }}">
             <x-heroicon-s-clipboard-document-list class="h-5 w-5" />
             Orders
         </a>

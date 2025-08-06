@@ -5,6 +5,8 @@ use App\Http\Middleware\PreventAdminOrders;
 use App\Livewire\Admin\AttributeManagement;
 use App\Livewire\Admin\CategoryManagement;
 use App\Livewire\Admin\Dashboard;
+use App\Livewire\Admin\OrderManagement\OrderDetails;
+use App\Livewire\Admin\OrderManagement\OrdersDashboard;
 use App\Livewire\Admin\ProductCreate;
 use App\Livewire\Admin\ProductEdit;
 use App\Livewire\Admin\ProductIndex;
@@ -30,6 +32,8 @@ use App\Livewire\Public\TermsCondition;
 use App\Livewire\Public\Wishlist;
 use App\Models\Orders;
 use Illuminate\Container\Attributes\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,13 +72,16 @@ Route::middleware(['auth', AdminMiddleware::class])
             Route::get('/{product}/edit', ProductEdit::class)->name('edit');
             Route::get('/{product}', ProductShow::class)->name('show');
         });
+
+        Route::get('/orders', OrdersDashboard::class)->name('orders.index');
+        Route::get('/orders/{order}', OrderDetails::class)->name('orders.show');
+
     });
 
 /*
 |--------------------------------------------------------------------------
-| Shopping & Catalog (optional: no auth required)
+| Shopping & Catalog (no auth required)
 |--------------------------------------------------------------------------
-| If you want browsing products & categories open to guests:
 */
 Route::get('/category', Category::class)->name('category');
 Route::get('/category/{slug}', ProductsList::class)->name('category.products');
